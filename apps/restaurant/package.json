@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@matchday-lounge/shared": "*",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.6",

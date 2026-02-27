@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "default": "matchdaylounge"
+  },
+  "targets": {
+    "matchdaylounge": {
+      "hosting": {
+        "admin": [
+          "matchdaylounge-admin"
+        ],
+        "matchday-restaurant": [
+          "matchday-restaurant"
+        ],
+        "matchday-admin": [
+          "matchday-admin"
+        ],
+        "restaurant": [
+          "matchdaylounge-restaurant"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,63 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ──────────────────────────────────────────────
+    // Helper functions
+    // ──────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.role == 'admin';
+    }
+
+    function isImageFile() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isUnder5MB() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // ──────────────────────────────────────────────
+    // Restaurant images — owners upload, public read
+    // ──────────────────────────────────────────────
+
+    match /restaurants/{restaurantId}/images/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && isImageFile() && isUnder5MB();
+      allow delete: if isAdmin();
+    }
+
+    // ──────────────────────────────────────────────
+    // User profile avatars
+    // ──────────────────────────────────────────────
+
+    match /users/{uid}/avatar/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == uid && isImageFile() && isUnder5MB();
+      allow delete: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // ──────────────────────────────────────────────
+    // Admin-only assets (team flags, venue photos, etc.)
+    // ──────────────────────────────────────────────
+
+    match /assets/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ──────────────────────────────────────────────
+    // Deny everything else
+    // ──────────────────────────────────────────────
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

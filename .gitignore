@@ -1,48 +1,100 @@
+# ─────────────────────────────────────────────────────────
+# MatchDay Lounge — .gitignore
+# ─────────────────────────────────────────────────────────
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+
+# Expo / React Native
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+android/
+ios/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local
+.env.development
+.env.staging
+.env.production
+
+# Firebase secrets — NEVER commit these
+service-account-key.json
+*-service-account*.json
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+
+# Google Cloud
+.gcloud/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 lerna-debug.log*
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Optional npm cache directory
+# Caches
 .npm
-
-# Optional eslint cache
+.yarn/cache
+.pnpm-store/
 .eslintcache
-
-# dotenv environment variables file
-.env
-.env.test
-
-# Next.js build output
-.next
-out
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
+.stylelintcache
 .cache/
-
-# Vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
+*.turbo
 
 # IDEs and editors
 .idea/
 .vscode/
 *.swp
 *.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# Claude Code
+.claude/
+
+# Misc
+*.pem
+*.zip
+*.tar.gz

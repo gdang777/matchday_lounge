@@ -1,0 +1,2705 @@
+"""
+✨ `BoostTier_Expr` is a server value variant of enum type `BoostTier`.
+
+It accepts a CEL expression.
+"""
+scalar BoostTier_Expr
+"""
+✨ `City_Expr` is a server value variant of enum type `City`.
+
+It accepts a CEL expression.
+"""
+scalar City_Expr
+"""
+✨ `DealType_Expr` is a server value variant of enum type `DealType`.
+
+It accepts a CEL expression.
+"""
+scalar DealType_Expr
+"""
+✨ `Promotion_KeyOutput` returns the primary key fields of table type `Promotion`.
+
+It has the same format as `Promotion_Key`, but is only used as mutation return value.
+"""
+scalar Promotion_KeyOutput
+"""
+✨ `PromotionSource_Expr` is a server value variant of enum type `PromotionSource`.
+
+It accepts a CEL expression.
+"""
+scalar PromotionSource_Expr
+"""
+✨ `Restaurant_KeyOutput` returns the primary key fields of table type `Restaurant`.
+
+It has the same format as `Restaurant_Key`, but is only used as mutation return value.
+"""
+scalar Restaurant_KeyOutput
+"""
+✨ `User_KeyOutput` returns the primary key fields of table type `User`.
+
+It has the same format as `User_Key`, but is only used as mutation return value.
+"""
+scalar User_KeyOutput
+"""
+✨ `UserSavedVenue_KeyOutput` returns the primary key fields of table type `UserSavedVenue`.
+
+It has the same format as `UserSavedVenue_Key`, but is only used as mutation return value.
+"""
+scalar UserSavedVenue_KeyOutput
+"""
+✨ `VenueView_KeyOutput` returns the primary key fields of table type `VenueView`.
+
+It has the same format as `VenueView_Key`, but is only used as mutation return value.
+"""
+scalar VenueView_KeyOutput
+"""
+✨ `ViewType_Expr` is a server value variant of enum type `ViewType`.
+
+It accepts a CEL expression.
+"""
+scalar ViewType_Expr
+"""
+✨ Generated filter input type for table 'BoostTier'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input BoostTier_Filter {
+  """
+  Match if field is exactly equal to provided value.
+  """
+  eq: BoostTier
+  """
+  ✨ `_expr` server value variant of `eq` (Match if field is exactly equal to provided value.)
+  """
+  eq_expr: BoostTier_Expr
+  """
+  Match if field is not equal to provided value.
+  """
+  ne: BoostTier
+  """
+  ✨ `_expr` server value variant of `ne` (Match if field is not equal to provided value.)
+  """
+  ne_expr: BoostTier_Expr
+  """
+  When true, match if field `IS NULL`. When false, match if field is `NOT NULL`.
+  """
+  isNull: Boolean
+  """
+  Match if field value is among the provided list of values.
+  """
+  in: [BoostTier!]
+  """
+  Match if field value is not among the provided list of values.
+  """
+  nin: [BoostTier!]
+  """
+  Match if field value is greater than the provided value, based on index ordering of supported enum values.
+  """
+  gt: BoostTier
+  """
+  ✨ `_expr` server value variant of `gt` (Match if field value is greater than the provided value, based on index ordering of supported enum values.)
+  """
+  gt_expr: BoostTier_Expr
+  """
+  Match if field is greater than or equal to the provided value.
+  """
+  ge: BoostTier
+  """
+  ✨ `_expr` server value variant of `ge` (Match if field is greater than or equal to the provided value.)
+  """
+  ge_expr: BoostTier_Expr
+  """
+  Match if field value is less than the provided value, based on index ordering of supported enum values.
+  """
+  lt: BoostTier
+  """
+  ✨ `_expr` server value variant of `lt` (Match if field value is less than the provided value, based on index ordering of supported enum values.)
+  """
+  lt_expr: BoostTier_Expr
+  """
+  Match if field is less than or equal to the provided value, based on index ordering of supported enum values.
+  """
+  le: BoostTier
+  """
+  ✨ `_expr` server value variant of `le` (Match if field is less than or equal to the provided value, based on index ordering of supported enum values.)
+  """
+  le_expr: BoostTier_Expr
+}
+"""
+✨ Generated list filter input type for table 'BoostTier'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input BoostTier_ListFilter {
+  """
+  Match if list field contains the provided value as a member.
+  """
+  includes: BoostTier
+  """
+  ✨ `_expr` server value variant of `includes` (Match if list field contains the provided value as a member.)
+  """
+  includes_expr: BoostTier_Expr
+  """
+  Match if list field contains all of the provided values as members.
+  """
+  includesAll: [BoostTier!]
+  """
+  Match if list field does not contain the provided value as a member.
+  """
+  excludes: BoostTier
+  """
+  ✨ `_expr` server value variant of `excludes` (Match if list field does not contain the provided value as a member.)
+  """
+  excludes_expr: BoostTier_Expr
+  """
+  Match if list field does not contain any of the provided values as members.
+  """
+  excludesAll: [BoostTier!]
+  """
+  The desired number of enum values that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: BoostTier_Filter
+}
+"""
+✨ Generated filter input type for table 'City'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input City_Filter {
+  """
+  Match if field is exactly equal to provided value.
+  """
+  eq: City
+  """
+  ✨ `_expr` server value variant of `eq` (Match if field is exactly equal to provided value.)
+  """
+  eq_expr: City_Expr
+  """
+  Match if field is not equal to provided value.
+  """
+  ne: City
+  """
+  ✨ `_expr` server value variant of `ne` (Match if field is not equal to provided value.)
+  """
+  ne_expr: City_Expr
+  """
+  When true, match if field `IS NULL`. When false, match if field is `NOT NULL`.
+  """
+  isNull: Boolean
+  """
+  Match if field value is among the provided list of values.
+  """
+  in: [City!]
+  """
+  Match if field value is not among the provided list of values.
+  """
+  nin: [City!]
+  """
+  Match if field value is greater than the provided value, based on index ordering of supported enum values.
+  """
+  gt: City
+  """
+  ✨ `_expr` server value variant of `gt` (Match if field value is greater than the provided value, based on index ordering of supported enum values.)
+  """
+  gt_expr: City_Expr
+  """
+  Match if field is greater than or equal to the provided value.
+  """
+  ge: City
+  """
+  ✨ `_expr` server value variant of `ge` (Match if field is greater than or equal to the provided value.)
+  """
+  ge_expr: City_Expr
+  """
+  Match if field value is less than the provided value, based on index ordering of supported enum values.
+  """
+  lt: City
+  """
+  ✨ `_expr` server value variant of `lt` (Match if field value is less than the provided value, based on index ordering of supported enum values.)
+  """
+  lt_expr: City_Expr
+  """
+  Match if field is less than or equal to the provided value, based on index ordering of supported enum values.
+  """
+  le: City
+  """
+  ✨ `_expr` server value variant of `le` (Match if field is less than or equal to the provided value, based on index ordering of supported enum values.)
+  """
+  le_expr: City_Expr
+}
+"""
+✨ Generated list filter input type for table 'City'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input City_ListFilter {
+  """
+  Match if list field contains the provided value as a member.
+  """
+  includes: City
+  """
+  ✨ `_expr` server value variant of `includes` (Match if list field contains the provided value as a member.)
+  """
+  includes_expr: City_Expr
+  """
+  Match if list field contains all of the provided values as members.
+  """
+  includesAll: [City!]
+  """
+  Match if list field does not contain the provided value as a member.
+  """
+  excludes: City
+  """
+  ✨ `_expr` server value variant of `excludes` (Match if list field does not contain the provided value as a member.)
+  """
+  excludes_expr: City_Expr
+  """
+  Match if list field does not contain any of the provided values as members.
+  """
+  excludesAll: [City!]
+  """
+  The desired number of enum values that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: City_Filter
+}
+"""
+✨ Generated filter input type for table 'DealType'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input DealType_Filter {
+  """
+  Match if field is exactly equal to provided value.
+  """
+  eq: DealType
+  """
+  ✨ `_expr` server value variant of `eq` (Match if field is exactly equal to provided value.)
+  """
+  eq_expr: DealType_Expr
+  """
+  Match if field is not equal to provided value.
+  """
+  ne: DealType
+  """
+  ✨ `_expr` server value variant of `ne` (Match if field is not equal to provided value.)
+  """
+  ne_expr: DealType_Expr
+  """
+  When true, match if field `IS NULL`. When false, match if field is `NOT NULL`.
+  """
+  isNull: Boolean
+  """
+  Match if field value is among the provided list of values.
+  """
+  in: [DealType!]
+  """
+  Match if field value is not among the provided list of values.
+  """
+  nin: [DealType!]
+  """
+  Match if field value is greater than the provided value, based on index ordering of supported enum values.
+  """
+  gt: DealType
+  """
+  ✨ `_expr` server value variant of `gt` (Match if field value is greater than the provided value, based on index ordering of supported enum values.)
+  """
+  gt_expr: DealType_Expr
+  """
+  Match if field is greater than or equal to the provided value.
+  """
+  ge: DealType
+  """
+  ✨ `_expr` server value variant of `ge` (Match if field is greater than or equal to the provided value.)
+  """
+  ge_expr: DealType_Expr
+  """
+  Match if field value is less than the provided value, based on index ordering of supported enum values.
+  """
+  lt: DealType
+  """
+  ✨ `_expr` server value variant of `lt` (Match if field value is less than the provided value, based on index ordering of supported enum values.)
+  """
+  lt_expr: DealType_Expr
+  """
+  Match if field is less than or equal to the provided value, based on index ordering of supported enum values.
+  """
+  le: DealType
+  """
+  ✨ `_expr` server value variant of `le` (Match if field is less than or equal to the provided value, based on index ordering of supported enum values.)
+  """
+  le_expr: DealType_Expr
+}
+"""
+✨ Generated list filter input type for table 'DealType'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input DealType_ListFilter {
+  """
+  Match if list field contains the provided value as a member.
+  """
+  includes: DealType
+  """
+  ✨ `_expr` server value variant of `includes` (Match if list field contains the provided value as a member.)
+  """
+  includes_expr: DealType_Expr
+  """
+  Match if list field contains all of the provided values as members.
+  """
+  includesAll: [DealType!]
+  """
+  Match if list field does not contain the provided value as a member.
+  """
+  excludes: DealType
+  """
+  ✨ `_expr` server value variant of `excludes` (Match if list field does not contain the provided value as a member.)
+  """
+  excludes_expr: DealType_Expr
+  """
+  Match if list field does not contain any of the provided values as members.
+  """
+  excludesAll: [DealType!]
+  """
+  The desired number of enum values that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: DealType_Filter
+}
+"""
+✨ Generated data input type for table 'Promotion'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Promotion_Data {
+  """
+  ✨ Generated from Field `Promotion`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Promotion`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Promotion`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID
+  """
+  ✨ `_expr` server value variant of `restaurantId` (✨ Generated from Field `Promotion`.`restaurantId` of type `UUID!`)
+  """
+  restaurantId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Promotion`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Key
+  """
+  ✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Promotion`.`daysOfWeek` of type `String!`
+  """
+  daysOfWeek: String
+  """
+  ✨ `_expr` server value variant of `daysOfWeek` (✨ Generated from Field `Promotion`.`daysOfWeek` of type `String!`)
+  """
+  daysOfWeek_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`dealType` of type `DealType!`
+  """
+  dealType: DealType
+  """
+  ✨ `_expr` server value variant of `dealType` (✨ Generated from Field `Promotion`.`dealType` of type `DealType!`)
+  """
+  dealType_expr: DealType_Expr
+  """
+  ✨ Generated from Field `Promotion`.`description` of type `String!`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Promotion`.`description` of type `String!`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`endTime` of type `String!`
+  """
+  endTime: String
+  """
+  ✨ `_expr` server value variant of `endTime` (✨ Generated from Field `Promotion`.`endTime` of type `String!`)
+  """
+  endTime_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`flagCount` of type `Int!`
+  """
+  flagCount: Int
+  """
+  ✨ `_expr` server value variant of `flagCount` (✨ Generated from Field `Promotion`.`flagCount` of type `Int!`)
+  """
+  flagCount_expr: Int_Expr
+  """
+  ✨ `_update` server value variant of `flagCount` (✨ Generated from Field `Promotion`.`flagCount` of type `Int!`)
+  """
+  flagCount_update: [Int_Update!]
+  """
+  ✨ Generated from Field `Promotion`.`isActive` of type `Boolean!`
+  """
+  isActive: Boolean
+  """
+  ✨ `_expr` server value variant of `isActive` (✨ Generated from Field `Promotion`.`isActive` of type `Boolean!`)
+  """
+  isActive_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Promotion`.`isApproved` of type `Boolean!`
+  """
+  isApproved: Boolean
+  """
+  ✨ `_expr` server value variant of `isApproved` (✨ Generated from Field `Promotion`.`isApproved` of type `Boolean!`)
+  """
+  isApproved_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Promotion`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Promotion`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`source` of type `PromotionSource!`
+  """
+  source: PromotionSource
+  """
+  ✨ `_expr` server value variant of `source` (✨ Generated from Field `Promotion`.`source` of type `PromotionSource!`)
+  """
+  source_expr: PromotionSource_Expr
+  """
+  ✨ Generated from Field `Promotion`.`startTime` of type `String!`
+  """
+  startTime: String
+  """
+  ✨ `_expr` server value variant of `startTime` (✨ Generated from Field `Promotion`.`startTime` of type `String!`)
+  """
+  startTime_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`submittedByUserId` of type `String`
+  """
+  submittedByUserId: String
+  """
+  ✨ `_expr` server value variant of `submittedByUserId` (✨ Generated from Field `Promotion`.`submittedByUserId` of type `String`)
+  """
+  submittedByUserId_expr: String_Expr
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `updatedAt` (✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `updatedAt` (✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `updatedAt` (✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_update: [Timestamp_Update!]
+}
+"""
+✨ Generated filter input type for table 'Promotion'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Promotion_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Promotion_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Promotion_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Promotion_Filter!]
+  """
+  ✨ Generated from Field `Promotion`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Promotion`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID_Filter
+  """
+  ✨ Generated from Field `Promotion`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Filter
+  """
+  ✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Promotion`.`daysOfWeek` of type `String!`
+  """
+  daysOfWeek: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`dealType` of type `DealType!`
+  """
+  dealType: DealType_Filter
+  """
+  ✨ Generated from Field `Promotion`.`description` of type `String!`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`endTime` of type `String!`
+  """
+  endTime: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount` of type `Int!`
+  """
+  flagCount: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`isActive` of type `Boolean!`
+  """
+  isActive: Boolean_Filter
+  """
+  ✨ Generated from Field `Promotion`.`isApproved` of type `Boolean!`
+  """
+  isApproved: Boolean_Filter
+  """
+  ✨ Generated from Field `Promotion`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`source` of type `PromotionSource!`
+  """
+  source: PromotionSource_Filter
+  """
+  ✨ Generated from Field `Promotion`.`startTime` of type `String!`
+  """
+  startTime: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`submittedByUserId` of type `String`
+  """
+  submittedByUserId: String_Filter
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'Promotion'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Promotion_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Promotion_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Promotion_Filter
+}
+"""
+✨ Generated having input type for table 'Promotion'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Promotion_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Promotion_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Promotion_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Promotion_Having!]
+  """
+  ✨ Generated from Field `Promotion`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`daysOfWeek_count` of type `Int!`
+  """
+  daysOfWeek_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`dealType_count` of type `Int!`
+  """
+  dealType_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`description_count` of type `Int!`
+  """
+  description_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`endTime_count` of type `Int!`
+  """
+  endTime_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_count` of type `Int!`
+  """
+  flagCount_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`isActive_count` of type `Int!`
+  """
+  isActive_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`isApproved_count` of type `Int!`
+  """
+  isApproved_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`source_count` of type `Int!`
+  """
+  source_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`startTime_count` of type `Int!`
+  """
+  startTime_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`submittedByUserId_count` of type `Int!`
+  """
+  submittedByUserId_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_sum` of type `Int`
+  """
+  flagCount_sum: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_avg` of type `Float`
+  """
+  flagCount_avg: Float_Filter
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_min` of type `Int`
+  """
+  flagCount_min: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_max` of type `Int`
+  """
+  flagCount_max: Int_Filter
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Promotion'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Promotion_Key {
+  """
+  ✨ Generated from Field `Promotion`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Promotion`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Promotion'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Promotion_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Promotion_Filter
+}
+"""
+✨ Generated order input type for table 'Promotion'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Promotion_Order {
+  """
+  ✨ Generated from Field `Promotion`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Order
+  """
+  ✨ Generated from Field `Promotion`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`daysOfWeek` of type `String!`
+  """
+  daysOfWeek: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`dealType` of type `DealType!`
+  """
+  dealType: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`description` of type `String!`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`endTime` of type `String!`
+  """
+  endTime: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount` of type `Int!`
+  """
+  flagCount: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`isActive` of type `Boolean!`
+  """
+  isActive: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`isApproved` of type `Boolean!`
+  """
+  isApproved: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`source` of type `PromotionSource!`
+  """
+  source: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`startTime` of type `String!`
+  """
+  startTime: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`submittedByUserId` of type `String`
+  """
+  submittedByUserId: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`daysOfWeek_count` of type `Int!`
+  """
+  daysOfWeek_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`dealType_count` of type `Int!`
+  """
+  dealType_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`description_count` of type `Int!`
+  """
+  description_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`endTime_count` of type `Int!`
+  """
+  endTime_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_count` of type `Int!`
+  """
+  flagCount_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`isActive_count` of type `Int!`
+  """
+  isActive_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`isApproved_count` of type `Int!`
+  """
+  isApproved_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`source_count` of type `Int!`
+  """
+  source_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`startTime_count` of type `Int!`
+  """
+  startTime_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`submittedByUserId_count` of type `Int!`
+  """
+  submittedByUserId_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_sum` of type `Int`
+  """
+  flagCount_sum: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_avg` of type `Float`
+  """
+  flagCount_avg: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_min` of type `Int`
+  """
+  flagCount_min: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`flagCount_max` of type `Int`
+  """
+  flagCount_max: OrderDirection
+  """
+  ✨ Generated from Field `Promotion`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: OrderDirection
+}
+"""
+✨ Generated filter input type for table 'PromotionSource'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input PromotionSource_Filter {
+  """
+  Match if field is exactly equal to provided value.
+  """
+  eq: PromotionSource
+  """
+  ✨ `_expr` server value variant of `eq` (Match if field is exactly equal to provided value.)
+  """
+  eq_expr: PromotionSource_Expr
+  """
+  Match if field is not equal to provided value.
+  """
+  ne: PromotionSource
+  """
+  ✨ `_expr` server value variant of `ne` (Match if field is not equal to provided value.)
+  """
+  ne_expr: PromotionSource_Expr
+  """
+  When true, match if field `IS NULL`. When false, match if field is `NOT NULL`.
+  """
+  isNull: Boolean
+  """
+  Match if field value is among the provided list of values.
+  """
+  in: [PromotionSource!]
+  """
+  Match if field value is not among the provided list of values.
+  """
+  nin: [PromotionSource!]
+  """
+  Match if field value is greater than the provided value, based on index ordering of supported enum values.
+  """
+  gt: PromotionSource
+  """
+  ✨ `_expr` server value variant of `gt` (Match if field value is greater than the provided value, based on index ordering of supported enum values.)
+  """
+  gt_expr: PromotionSource_Expr
+  """
+  Match if field is greater than or equal to the provided value.
+  """
+  ge: PromotionSource
+  """
+  ✨ `_expr` server value variant of `ge` (Match if field is greater than or equal to the provided value.)
+  """
+  ge_expr: PromotionSource_Expr
+  """
+  Match if field value is less than the provided value, based on index ordering of supported enum values.
+  """
+  lt: PromotionSource
+  """
+  ✨ `_expr` server value variant of `lt` (Match if field value is less than the provided value, based on index ordering of supported enum values.)
+  """
+  lt_expr: PromotionSource_Expr
+  """
+  Match if field is less than or equal to the provided value, based on index ordering of supported enum values.
+  """
+  le: PromotionSource
+  """
+  ✨ `_expr` server value variant of `le` (Match if field is less than or equal to the provided value, based on index ordering of supported enum values.)
+  """
+  le_expr: PromotionSource_Expr
+}
+"""
+✨ Generated list filter input type for table 'PromotionSource'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input PromotionSource_ListFilter {
+  """
+  Match if list field contains the provided value as a member.
+  """
+  includes: PromotionSource
+  """
+  ✨ `_expr` server value variant of `includes` (Match if list field contains the provided value as a member.)
+  """
+  includes_expr: PromotionSource_Expr
+  """
+  Match if list field contains all of the provided values as members.
+  """
+  includesAll: [PromotionSource!]
+  """
+  Match if list field does not contain the provided value as a member.
+  """
+  excludes: PromotionSource
+  """
+  ✨ `_expr` server value variant of `excludes` (Match if list field does not contain the provided value as a member.)
+  """
+  excludes_expr: PromotionSource_Expr
+  """
+  Match if list field does not contain any of the provided values as members.
+  """
+  excludesAll: [PromotionSource!]
+  """
+  The desired number of enum values that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: PromotionSource_Filter
+}
+"""
+✨ Generated data input type for table 'Restaurant'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Restaurant_Data {
+  """
+  ✨ Generated from Field `Restaurant`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Restaurant`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`address` of type `String`
+  """
+  address: String
+  """
+  ✨ `_expr` server value variant of `address` (✨ Generated from Field `Restaurant`.`address` of type `String`)
+  """
+  address_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`
+  """
+  boostExpiresAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `boostExpiresAt` (✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`)
+  """
+  boostExpiresAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `boostExpiresAt` (✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`)
+  """
+  boostExpiresAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `boostExpiresAt` (✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`)
+  """
+  boostExpiresAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Restaurant`.`boostTier` of type `BoostTier!`
+  """
+  boostTier: BoostTier
+  """
+  ✨ `_expr` server value variant of `boostTier` (✨ Generated from Field `Restaurant`.`boostTier` of type `BoostTier!`)
+  """
+  boostTier_expr: BoostTier_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`city` of type `City!`
+  """
+  city: City
+  """
+  ✨ `_expr` server value variant of `city` (✨ Generated from Field `Restaurant`.`city` of type `City!`)
+  """
+  city_expr: City_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Restaurant`.`cuisineType` of type `String`
+  """
+  cuisineType: String
+  """
+  ✨ `_expr` server value variant of `cuisineType` (✨ Generated from Field `Restaurant`.`cuisineType` of type `String`)
+  """
+  cuisineType_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`description` of type `String`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Restaurant`.`description` of type `String`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`googleMapsUrl` of type `String`
+  """
+  googleMapsUrl: String
+  """
+  ✨ `_expr` server value variant of `googleMapsUrl` (✨ Generated from Field `Restaurant`.`googleMapsUrl` of type `String`)
+  """
+  googleMapsUrl_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`isApproved` of type `Boolean!`
+  """
+  isApproved: Boolean
+  """
+  ✨ `_expr` server value variant of `isApproved` (✨ Generated from Field `Restaurant`.`isApproved` of type `Boolean!`)
+  """
+  isApproved_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`isSuspended` of type `Boolean!`
+  """
+  isSuspended: Boolean
+  """
+  ✨ `_expr` server value variant of `isSuspended` (✨ Generated from Field `Restaurant`.`isSuspended` of type `Boolean!`)
+  """
+  isSuspended_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`isVerified` of type `Boolean!`
+  """
+  isVerified: Boolean
+  """
+  ✨ `_expr` server value variant of `isVerified` (✨ Generated from Field `Restaurant`.`isVerified` of type `Boolean!`)
+  """
+  isVerified_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Restaurant`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`neighborhood` of type `String`
+  """
+  neighborhood: String
+  """
+  ✨ `_expr` server value variant of `neighborhood` (✨ Generated from Field `Restaurant`.`neighborhood` of type `String`)
+  """
+  neighborhood_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`ownerUserId` of type `String!`
+  """
+  ownerUserId: String
+  """
+  ✨ `_expr` server value variant of `ownerUserId` (✨ Generated from Field `Restaurant`.`ownerUserId` of type `String!`)
+  """
+  ownerUserId_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String
+  """
+  ✨ `_expr` server value variant of `phoneNumber` (✨ Generated from Field `Restaurant`.`phoneNumber` of type `String`)
+  """
+  phoneNumber_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`photoUrls` of type `String`
+  """
+  photoUrls: String
+  """
+  ✨ `_expr` server value variant of `photoUrls` (✨ Generated from Field `Restaurant`.`photoUrls` of type `String`)
+  """
+  photoUrls_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`stripeSubscriptionId` of type `String`
+  """
+  stripeSubscriptionId: String
+  """
+  ✨ `_expr` server value variant of `stripeSubscriptionId` (✨ Generated from Field `Restaurant`.`stripeSubscriptionId` of type `String`)
+  """
+  stripeSubscriptionId_expr: String_Expr
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `updatedAt` (✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `updatedAt` (✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `updatedAt` (✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Restaurant`.`website` of type `String`
+  """
+  website: String
+  """
+  ✨ `_expr` server value variant of `website` (✨ Generated from Field `Restaurant`.`website` of type `String`)
+  """
+  website_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Restaurant'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Restaurant_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Restaurant_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Restaurant_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Restaurant_Filter!]
+  """
+  ✨ Generated from Field `Restaurant`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`address` of type `String`
+  """
+  address: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`
+  """
+  boostExpiresAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostTier` of type `BoostTier!`
+  """
+  boostTier: BoostTier_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`city` of type `City!`
+  """
+  city: City_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`cuisineType` of type `String`
+  """
+  cuisineType: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`description` of type `String`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`googleMapsUrl` of type `String`
+  """
+  googleMapsUrl: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isApproved` of type `Boolean!`
+  """
+  isApproved: Boolean_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isSuspended` of type `Boolean!`
+  """
+  isSuspended: Boolean_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isVerified` of type `Boolean!`
+  """
+  isVerified: Boolean_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`neighborhood` of type `String`
+  """
+  neighborhood: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`ownerUserId` of type `String!`
+  """
+  ownerUserId: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`photoUrls` of type `String`
+  """
+  photoUrls: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`stripeSubscriptionId` of type `String`
+  """
+  stripeSubscriptionId: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`website` of type `String`
+  """
+  website: String_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`promotions_on_restaurant` of type `[Promotion!]!`
+  """
+  promotions_on_restaurant: Promotion_ListFilter
+  """
+  ✨ Generated from Field `Restaurant`.`userSavedVenues_on_restaurant` of type `[UserSavedVenue!]!`
+  """
+  userSavedVenues_on_restaurant: UserSavedVenue_ListFilter
+  """
+  ✨ Generated from Field `Restaurant`.`venueViews_on_restaurant` of type `[VenueView!]!`
+  """
+  venueViews_on_restaurant: VenueView_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Restaurant'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Restaurant_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Restaurant_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Restaurant_Filter
+}
+"""
+✨ Generated having input type for table 'Restaurant'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Restaurant_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Restaurant_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Restaurant_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Restaurant_Having!]
+  """
+  ✨ Generated from Field `Restaurant`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`address_count` of type `Int!`
+  """
+  address_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_count` of type `Int!`
+  """
+  boostExpiresAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostTier_count` of type `Int!`
+  """
+  boostTier_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`city_count` of type `Int!`
+  """
+  city_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`cuisineType_count` of type `Int!`
+  """
+  cuisineType_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`description_count` of type `Int!`
+  """
+  description_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`googleMapsUrl_count` of type `Int!`
+  """
+  googleMapsUrl_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isApproved_count` of type `Int!`
+  """
+  isApproved_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isSuspended_count` of type `Int!`
+  """
+  isSuspended_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`isVerified_count` of type `Int!`
+  """
+  isVerified_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`neighborhood_count` of type `Int!`
+  """
+  neighborhood_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`ownerUserId_count` of type `Int!`
+  """
+  ownerUserId_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`photoUrls_count` of type `Int!`
+  """
+  photoUrls_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`stripeSubscriptionId_count` of type `Int!`
+  """
+  stripeSubscriptionId_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`website_count` of type `Int!`
+  """
+  website_count: Int_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_min` of type `Timestamp`
+  """
+  boostExpiresAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_max` of type `Timestamp`
+  """
+  boostExpiresAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Restaurant'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Restaurant_Key {
+  """
+  ✨ Generated from Field `Restaurant`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Restaurant`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Restaurant'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Restaurant_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Restaurant_Filter
+}
+"""
+✨ Generated order input type for table 'Restaurant'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Restaurant_Order {
+  """
+  ✨ Generated from Field `Restaurant`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`address` of type `String`
+  """
+  address: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt` of type `Timestamp`
+  """
+  boostExpiresAt: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostTier` of type `BoostTier!`
+  """
+  boostTier: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`city` of type `City!`
+  """
+  city: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`cuisineType` of type `String`
+  """
+  cuisineType: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`description` of type `String`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`googleMapsUrl` of type `String`
+  """
+  googleMapsUrl: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isApproved` of type `Boolean!`
+  """
+  isApproved: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isSuspended` of type `Boolean!`
+  """
+  isSuspended: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isVerified` of type `Boolean!`
+  """
+  isVerified: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`neighborhood` of type `String`
+  """
+  neighborhood: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`ownerUserId` of type `String!`
+  """
+  ownerUserId: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`phoneNumber` of type `String`
+  """
+  phoneNumber: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`photoUrls` of type `String`
+  """
+  photoUrls: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`stripeSubscriptionId` of type `String`
+  """
+  stripeSubscriptionId: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`website` of type `String`
+  """
+  website: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`address_count` of type `Int!`
+  """
+  address_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_count` of type `Int!`
+  """
+  boostExpiresAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostTier_count` of type `Int!`
+  """
+  boostTier_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`city_count` of type `Int!`
+  """
+  city_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`cuisineType_count` of type `Int!`
+  """
+  cuisineType_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`description_count` of type `Int!`
+  """
+  description_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`googleMapsUrl_count` of type `Int!`
+  """
+  googleMapsUrl_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isApproved_count` of type `Int!`
+  """
+  isApproved_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isSuspended_count` of type `Int!`
+  """
+  isSuspended_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`isVerified_count` of type `Int!`
+  """
+  isVerified_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`neighborhood_count` of type `Int!`
+  """
+  neighborhood_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`ownerUserId_count` of type `Int!`
+  """
+  ownerUserId_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`phoneNumber_count` of type `Int!`
+  """
+  phoneNumber_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`photoUrls_count` of type `Int!`
+  """
+  photoUrls_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`stripeSubscriptionId_count` of type `Int!`
+  """
+  stripeSubscriptionId_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`website_count` of type `Int!`
+  """
+  website_count: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_min` of type `Timestamp`
+  """
+  boostExpiresAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`boostExpiresAt_max` of type `Timestamp`
+  """
+  boostExpiresAt_max: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `Restaurant`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'User'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input User_Data {
+  """
+  ✨ Generated from Field `User`.`id` of type `String!`
+  """
+  id: String
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `String!`)
+  """
+  id_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`city` of type `City`
+  """
+  city: City
+  """
+  ✨ `_expr` server value variant of `city` (✨ Generated from Field `User`.`city` of type `City`)
+  """
+  city_expr: City_Expr
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `User`.`displayName` of type `String`
+  """
+  displayName: String
+  """
+  ✨ `_expr` server value variant of `displayName` (✨ Generated from Field `User`.`displayName` of type `String`)
+  """
+  displayName_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String
+  """
+  ✨ `_expr` server value variant of `email` (✨ Generated from Field `User`.`email` of type `String!`)
+  """
+  email_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`isPro` of type `Boolean!`
+  """
+  isPro: Boolean
+  """
+  ✨ `_expr` server value variant of `isPro` (✨ Generated from Field `User`.`isPro` of type `Boolean!`)
+  """
+  isPro_expr: Boolean_Expr
+  """
+  ✨ Generated from Field `User`.`preferredDealTypes` of type `String`
+  """
+  preferredDealTypes: String
+  """
+  ✨ `_expr` server value variant of `preferredDealTypes` (✨ Generated from Field `User`.`preferredDealTypes` of type `String`)
+  """
+  preferredDealTypes_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`
+  """
+  proExpiresAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `proExpiresAt` (✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`)
+  """
+  proExpiresAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `proExpiresAt` (✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`)
+  """
+  proExpiresAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `proExpiresAt` (✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`)
+  """
+  proExpiresAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `User`.`quietHoursEnd` of type `String`
+  """
+  quietHoursEnd: String
+  """
+  ✨ `_expr` server value variant of `quietHoursEnd` (✨ Generated from Field `User`.`quietHoursEnd` of type `String`)
+  """
+  quietHoursEnd_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`quietHoursStart` of type `String`
+  """
+  quietHoursStart: String
+  """
+  ✨ `_expr` server value variant of `quietHoursStart` (✨ Generated from Field `User`.`quietHoursStart` of type `String`)
+  """
+  quietHoursStart_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`stripeCustomerId` of type `String`
+  """
+  stripeCustomerId: String
+  """
+  ✨ `_expr` server value variant of `stripeCustomerId` (✨ Generated from Field `User`.`stripeCustomerId` of type `String`)
+  """
+  stripeCustomerId_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'User'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [User_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: User_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [User_Filter!]
+  """
+  ✨ Generated from Field `User`.`id` of type `String!`
+  """
+  id: String_Filter
+  """
+  ✨ Generated from Field `User`.`city` of type `City`
+  """
+  city: City_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`displayName` of type `String`
+  """
+  displayName: String_Filter
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String_Filter
+  """
+  ✨ Generated from Field `User`.`isPro` of type `Boolean!`
+  """
+  isPro: Boolean_Filter
+  """
+  ✨ Generated from Field `User`.`preferredDealTypes` of type `String`
+  """
+  preferredDealTypes: String_Filter
+  """
+  ✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`
+  """
+  proExpiresAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`quietHoursEnd` of type `String`
+  """
+  quietHoursEnd: String_Filter
+  """
+  ✨ Generated from Field `User`.`quietHoursStart` of type `String`
+  """
+  quietHoursStart: String_Filter
+  """
+  ✨ Generated from Field `User`.`stripeCustomerId` of type `String`
+  """
+  stripeCustomerId: String_Filter
+  """
+  ✨ Generated from Field `User`.`userSavedVenues_on_user` of type `[UserSavedVenue!]!`
+  """
+  userSavedVenues_on_user: UserSavedVenue_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'User'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input User_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [User_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: User_Filter
+}
+"""
+✨ Generated having input type for table 'User'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [User_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: User_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [User_Having!]
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`city_count` of type `Int!`
+  """
+  city_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`displayName_count` of type `Int!`
+  """
+  displayName_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`isPro_count` of type `Int!`
+  """
+  isPro_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`preferredDealTypes_count` of type `Int!`
+  """
+  preferredDealTypes_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_count` of type `Int!`
+  """
+  proExpiresAt_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`quietHoursEnd_count` of type `Int!`
+  """
+  quietHoursEnd_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`quietHoursStart_count` of type `Int!`
+  """
+  quietHoursStart_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`stripeCustomerId_count` of type `Int!`
+  """
+  stripeCustomerId_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_min` of type `Timestamp`
+  """
+  proExpiresAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_max` of type `Timestamp`
+  """
+  proExpiresAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'User'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input User_Key {
+  """
+  ✨ Generated from Field `User`.`id` of type `String!`
+  """
+  id: String
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `String!`)
+  """
+  id_expr: String_Expr
+}
+"""
+✨ Generated list filter input type for table 'User'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input User_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: User_Filter
+}
+"""
+✨ Generated order input type for table 'User'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input User_Order {
+  """
+  ✨ Generated from Field `User`.`id` of type `String!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `User`.`city` of type `City`
+  """
+  city: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `User`.`displayName` of type `String`
+  """
+  displayName: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: OrderDirection
+  """
+  ✨ Generated from Field `User`.`isPro` of type `Boolean!`
+  """
+  isPro: OrderDirection
+  """
+  ✨ Generated from Field `User`.`preferredDealTypes` of type `String`
+  """
+  preferredDealTypes: OrderDirection
+  """
+  ✨ Generated from Field `User`.`proExpiresAt` of type `Timestamp`
+  """
+  proExpiresAt: OrderDirection
+  """
+  ✨ Generated from Field `User`.`quietHoursEnd` of type `String`
+  """
+  quietHoursEnd: OrderDirection
+  """
+  ✨ Generated from Field `User`.`quietHoursStart` of type `String`
+  """
+  quietHoursStart: OrderDirection
+  """
+  ✨ Generated from Field `User`.`stripeCustomerId` of type `String`
+  """
+  stripeCustomerId: OrderDirection
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`city_count` of type `Int!`
+  """
+  city_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`displayName_count` of type `Int!`
+  """
+  displayName_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`isPro_count` of type `Int!`
+  """
+  isPro_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`preferredDealTypes_count` of type `Int!`
+  """
+  preferredDealTypes_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_count` of type `Int!`
+  """
+  proExpiresAt_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`quietHoursEnd_count` of type `Int!`
+  """
+  quietHoursEnd_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`quietHoursStart_count` of type `Int!`
+  """
+  quietHoursStart_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`stripeCustomerId_count` of type `Int!`
+  """
+  stripeCustomerId_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_min` of type `Timestamp`
+  """
+  proExpiresAt_min: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `User`.`proExpiresAt_max` of type `Timestamp`
+  """
+  proExpiresAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'UserSavedVenue'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input UserSavedVenue_Data {
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID
+  """
+  ✨ `_expr` server value variant of `restaurantId` (✨ Generated from Field `UserSavedVenue`.`restaurantId` of type `UUID!`)
+  """
+  restaurantId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `UserSavedVenue`.`userId` of type `String!`
+  """
+  userId: String
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `UserSavedVenue`.`userId` of type `String!`)
+  """
+  userId_expr: String_Expr
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Key
+  """
+  ✨ Generated from Field `UserSavedVenue`.`user` of type `User!`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+}
+"""
+✨ Generated filter input type for table 'UserSavedVenue'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input UserSavedVenue_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [UserSavedVenue_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: UserSavedVenue_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [UserSavedVenue_Filter!]
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`userId` of type `String!`
+  """
+  userId: String_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`user` of type `User!`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'UserSavedVenue'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input UserSavedVenue_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [UserSavedVenue_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: UserSavedVenue_Filter
+}
+"""
+✨ Generated having input type for table 'UserSavedVenue'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input UserSavedVenue_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [UserSavedVenue_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: UserSavedVenue_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [UserSavedVenue_Having!]
+  """
+  ✨ Generated from Field `UserSavedVenue`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: Int_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'UserSavedVenue'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input UserSavedVenue_Key {
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'UserSavedVenue'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input UserSavedVenue_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: UserSavedVenue_Filter
+}
+"""
+✨ Generated order input type for table 'UserSavedVenue'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input UserSavedVenue_Order {
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`userId` of type `String!`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Order
+  """
+  ✨ Generated from Field `UserSavedVenue`.`user` of type `User!`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `UserSavedVenue`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'VenueView'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input VenueView_Data {
+  """
+  ✨ Generated from Field `VenueView`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `VenueView`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `VenueView`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID
+  """
+  ✨ `_expr` server value variant of `restaurantId` (✨ Generated from Field `VenueView`.`restaurantId` of type `UUID!`)
+  """
+  restaurantId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `VenueView`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Key
+  """
+  ✨ Generated from Field `VenueView`.`city` of type `City!`
+  """
+  city: City
+  """
+  ✨ `_expr` server value variant of `city` (✨ Generated from Field `VenueView`.`city` of type `City!`)
+  """
+  city_expr: City_Expr
+  """
+  ✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `VenueView`.`userId` of type `String`
+  """
+  userId: String
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `VenueView`.`userId` of type `String`)
+  """
+  userId_expr: String_Expr
+  """
+  ✨ Generated from Field `VenueView`.`viewType` of type `ViewType!`
+  """
+  viewType: ViewType
+  """
+  ✨ `_expr` server value variant of `viewType` (✨ Generated from Field `VenueView`.`viewType` of type `ViewType!`)
+  """
+  viewType_expr: ViewType_Expr
+}
+"""
+✨ Generated filter input type for table 'VenueView'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input VenueView_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [VenueView_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: VenueView_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [VenueView_Filter!]
+  """
+  ✨ Generated from Field `VenueView`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `VenueView`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: UUID_Filter
+  """
+  ✨ Generated from Field `VenueView`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Filter
+  """
+  ✨ Generated from Field `VenueView`.`city` of type `City!`
+  """
+  city: City_Filter
+  """
+  ✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `VenueView`.`userId` of type `String`
+  """
+  userId: String_Filter
+  """
+  ✨ Generated from Field `VenueView`.`viewType` of type `ViewType!`
+  """
+  viewType: ViewType_Filter
+}
+"""
+✨ Generated first-row input type for table 'VenueView'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input VenueView_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [VenueView_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: VenueView_Filter
+}
+"""
+✨ Generated having input type for table 'VenueView'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input VenueView_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [VenueView_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: VenueView_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [VenueView_Having!]
+  """
+  ✨ Generated from Field `VenueView`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`city_count` of type `Int!`
+  """
+  city_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`viewType_count` of type `Int!`
+  """
+  viewType_count: Int_Filter
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'VenueView'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input VenueView_Key {
+  """
+  ✨ Generated from Field `VenueView`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `VenueView`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'VenueView'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input VenueView_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: VenueView_Filter
+}
+"""
+✨ Generated order input type for table 'VenueView'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input VenueView_Order {
+  """
+  ✨ Generated from Field `VenueView`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`restaurantId` of type `UUID!`
+  """
+  restaurantId: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`restaurant` of type `Restaurant!`
+  """
+  restaurant: Restaurant_Order
+  """
+  ✨ Generated from Field `VenueView`.`city` of type `City!`
+  """
+  city: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`userId` of type `String`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`viewType` of type `ViewType!`
+  """
+  viewType: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`city_count` of type `Int!`
+  """
+  city_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`restaurantId_count` of type `Int!`
+  """
+  restaurantId_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`viewType_count` of type `Int!`
+  """
+  viewType_count: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `VenueView`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated filter input type for table 'ViewType'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ViewType_Filter {
+  """
+  Match if field is exactly equal to provided value.
+  """
+  eq: ViewType
+  """
+  ✨ `_expr` server value variant of `eq` (Match if field is exactly equal to provided value.)
+  """
+  eq_expr: ViewType_Expr
+  """
+  Match if field is not equal to provided value.
+  """
+  ne: ViewType
+  """
+  ✨ `_expr` server value variant of `ne` (Match if field is not equal to provided value.)
+  """
+  ne_expr: ViewType_Expr
+  """
+  When true, match if field `IS NULL`. When false, match if field is `NOT NULL`.
+  """
+  isNull: Boolean
+  """
+  Match if field value is among the provided list of values.
+  """
+  in: [ViewType!]
+  """
+  Match if field value is not among the provided list of values.
+  """
+  nin: [ViewType!]
+  """
+  Match if field value is greater than the provided value, based on index ordering of supported enum values.
+  """
+  gt: ViewType
+  """
+  ✨ `_expr` server value variant of `gt` (Match if field value is greater than the provided value, based on index ordering of supported enum values.)
+  """
+  gt_expr: ViewType_Expr
+  """
+  Match if field is greater than or equal to the provided value.
+  """
+  ge: ViewType
+  """
+  ✨ `_expr` server value variant of `ge` (Match if field is greater than or equal to the provided value.)
+  """
+  ge_expr: ViewType_Expr
+  """
+  Match if field value is less than the provided value, based on index ordering of supported enum values.
+  """
+  lt: ViewType
+  """
+  ✨ `_expr` server value variant of `lt` (Match if field value is less than the provided value, based on index ordering of supported enum values.)
+  """
+  lt_expr: ViewType_Expr
+  """
+  Match if field is less than or equal to the provided value, based on index ordering of supported enum values.
+  """
+  le: ViewType
+  """
+  ✨ `_expr` server value variant of `le` (Match if field is less than or equal to the provided value, based on index ordering of supported enum values.)
+  """
+  le_expr: ViewType_Expr
+}
+"""
+✨ Generated list filter input type for table 'ViewType'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input ViewType_ListFilter {
+  """
+  Match if list field contains the provided value as a member.
+  """
+  includes: ViewType
+  """
+  ✨ `_expr` server value variant of `includes` (Match if list field contains the provided value as a member.)
+  """
+  includes_expr: ViewType_Expr
+  """
+  Match if list field contains all of the provided values as members.
+  """
+  includesAll: [ViewType!]
+  """
+  Match if list field does not contain the provided value as a member.
+  """
+  excludes: ViewType
+  """
+  ✨ `_expr` server value variant of `excludes` (Match if list field does not contain the provided value as a member.)
+  """
+  excludes_expr: ViewType_Expr
+  """
+  Match if list field does not contain any of the provided values as members.
+  """
+  excludesAll: [ViewType!]
+  """
+  The desired number of enum values that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: ViewType_Filter
+}

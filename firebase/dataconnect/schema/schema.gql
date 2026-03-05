@@ -1,0 +1,183 @@
+# ============================================================
+# MatchDay Lounge — Firebase Data Connect Schema
+# Structured relational data layer: Cloud SQL (Postgres).
+#
+# This file owns ALL structured/relational data.
+# Do NOT add Firestore logic here — Firestore handles:
+#   • live check-ins
+#   • match hub data (fixtures, scores, standings)
+#   • push notification state
+# ============================================================
+
+
+# ─── ENUMS ────────────────────────────────────────────────────────────────────
+
+enum City {
+  VANCOUVER
+  TORONTO
+}
+
+enum BoostTier {
+  STANDARD   # Free listing — default for all restaurants
+  FEATURED   # $79/month — elevated placement in listings
+  PREMIUM    # $149/month — top placement + featured badge
+}
+
+enum DealType {
+  DRINKS
+  FOOD
+  BOTH
+}
+
+enum PromotionSource {
+  PARTNER        # Entered directly by verified restaurant owner — auto-approved
+  SCRAPED        # Ingested via Apify scraper — requires admin approval
+  USER_SUBMITTED # Submitted by a fan user — requires admin approval
+}
+
+enum ViewType {
+  LISTING   # Restaurant card scrolled past in Happy Hour Finder
+  PROFILE   # Full restaurant detail screen opened
+  MAP_PIN   # Map pin tapped in City Nav
+}
+
+
+# ─── TABLES ───────────────────────────────────────────────────────────────────
+
+# USER
+# Surfaces: mobile app (fan profile, saved venues, Pro subscription status),
+#           Cloud Run API (auth checks, Stripe webhooks, AI deal alert delivery)
+#
+# Primary key = Firebase Auth UID (String). This is the standard Data Connect
+# pattern — it lets queries use `user(key: { id_expr: "auth.uid" })` directly,
+# and lets mutations set FKs via `userId_expr: "auth.uid"` without any
+# Auth UID <-> UUID mapping layer in the API.
+type User @table {
+  id: String! @default(expr: "auth.uid")
+  email: String! @col(dataType: "varchar(320)") @unique
+  displayName: String @col(dataType: "varchar(100)")
+  city: City
+  isPro: Boolean! @default(value: false)
+  # Stripe customer ID for managing Pro subscription payments
+  stripeCustomerId: String @col(dataType: "varchar(50)")
+  # Null = no active Pro subscription; set by Stripe webhook via Cloud Run
+  proExpiresAt: Timestamp
+  # AI deal alert quiet hours — stored as "HH:MM" 24h strings (e.g. "22:00", "08:00")
+  quietHoursStart: String @col(dataType: "varchar(5)")
+  quietHoursEnd: String @col(dataType: "varchar(5)")
+  # Comma-separated deal type preferences for AI alerts, e.g. "drinks,food" or "both"
+  preferredDealTypes: String @col(dataType: "varchar(50)")
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+
+# RESTAURANT
+# Surfaces: restaurant portal (owner dashboard, promotion management, analytics),
+#           mobile app (happy hour finder cards, city nav map pins, detail screens),
+#           admin panel (approval queue, boost tier management, suspension controls)
+type Restaurant @table {
+  id: UUID! @default(expr: "uuidV4()")
+  # Firebase Auth UID of the restaurant owner — used for ownership checks in Cloud Run
+  ownerUserId: String! @col(dataType: "varchar(128)")
+  name: String! @col(dataType: "varchar(200)")
+  description: String @col(dataType: "varchar(1000)")
+  city: City!
+  neighborhood: String @col(dataType: "varchar(100)")
+  address: String @col(dataType: "varchar(300)")
+  cuisineType: String @col(dataType: "varchar(100)")
+  phoneNumber: String @col(dataType: "varchar(20)")
+  website: String @col(dataType: "varchar(500)")
+  googleMapsUrl: String @col(dataType: "varchar(500)")
+  # Comma-separated Firebase Storage download URLs, e.g. "https://...a.jpg,https://...b.jpg"
+  photoUrls: String @col(dataType: "text")
+  # isVerified: admin has manually confirmed ownership docs
+  # isApproved: listing is live and visible in the app (admin must approve)
+  isVerified: Boolean! @default(value: false)
+  isApproved: Boolean! @default(value: false)
+  isSuspended: Boolean! @default(value: false)
+  boostTier: BoostTier! @default(value: STANDARD)
+  # Null = boost is not set or is admin-managed (indefinite); set by Stripe webhook
+  boostExpiresAt: Timestamp
+  # Stripe subscription ID for recurring boost tier payments
+  stripeSubscriptionId: String @col(dataType: "varchar(100)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+
+# PROMOTION
+# Surfaces: mobile app (happy hour finder — "Open Now" filter is the core feature,
+#           deal cards, AI Concierge deal context, AI deal alerts for Pro users),
+#           restaurant portal (create and manage promotions),
+#           admin panel (approval queue for SCRAPED and USER_SUBMITTED deals,
+#                        flag review queue)
+#
+# Performance note: This table is queried on every "Open Now" toggle and map load.
+# Ensure Postgres indexes on: isActive, isApproved, daysOfWeek, startTime, endTime,
+# and the restaurantId FK + restaurant.city join path.
+type Promotion @table {
+  id: UUID! @default(expr: "uuidV4()")
+  # FK to Restaurant — auto-generates promotions_on_restaurant reverse relation
+  restaurant: Restaurant!
+  name: String! @col(dataType: "varchar(200)")
+  # Primary content surfaced in deal cards and passed to Claude for AI summaries.
+  # Hard limit: 500 chars. Enforced here and at the API input validation layer.
+  description: String! @col(dataType: "varchar(500)")
+  dealType: DealType!
+  # Comma-separated 3-letter uppercase day codes: "MON","TUE","WED","THU","FRI","SAT","SUN"
+  # Example: "MON,TUE,WED,THU,FRI" or "SAT,SUN"
+  daysOfWeek: String! @col(dataType: "varchar(35)")
+  # 24-hour format "HH:MM". Lexicographic string comparison is valid for Open Now
+  # filtering (e.g. "09:00" < "16:00" < "22:00") — see GetActiveHappyHoursNow query.
+  startTime: String! @col(dataType: "varchar(5)")
+  endTime: String! @col(dataType: "varchar(5)")
+  isActive: Boolean! @default(value: true)
+  source: PromotionSource!
+  # PARTNER source: auto-approved (set isApproved=true at insert time in Cloud Run).
+  # SCRAPED / USER_SUBMITTED: requires admin review before going live.
+  isApproved: Boolean! @default(value: false)
+  # Firebase Auth UID of the fan who submitted this deal (USER_SUBMITTED source only)
+  submittedByUserId: String @col(dataType: "varchar(128)")
+  # Number of user "flag as inaccurate" reports. Cloud Run auto-deactivates at threshold (e.g. 5).
+  flagCount: Int! @default(value: 0)
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+
+# VENUE_VIEW (Analytics)
+# Surfaces: restaurant portal (impressions analytics dashboard — views by type and date),
+#           admin panel (platform-level analytics, boost ROI metrics)
+#
+# Write pattern: inserts on every view event (high-frequency writes).
+# Read pattern: aggregate queries only — never read individual rows in the app.
+# Tip: consider a Postgres materialized view or Cloud Run aggregation job for
+#      restaurant dashboard analytics to avoid full table scans.
+type VenueView @table(name: "VenueViews") {
+  id: UUID! @default(expr: "uuidV4()")
+  # Which restaurant was viewed
+  restaurant: Restaurant!
+  # Firebase Auth UID if user is signed in; null for anonymous pre-login sessions
+  userId: String @col(dataType: "varchar(128)")
+  viewType: ViewType!
+  # Denormalised from Restaurant for efficient city-level analytics without extra joins
+  city: City!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+
+# USER_SAVED_VENUE
+# Surfaces: mobile app ("My Saved Venues" tab, heart/bookmark icon on deal cards),
+#           Cloud Run API (deal alerts — notify Pro users when saved venues post new promos,
+#                          AI Concierge personalisation context)
+#
+# Uniqueness: application layer (Cloud Run) must check for existing save before insert
+# to prevent duplicate (userId, restaurantId) pairs.
+type UserSavedVenue @table(name: "UserSavedVenues") {
+  id: UUID! @default(expr: "uuidV4()")
+  # FK to User — auto-generates userSavedVenues_on_user reverse relation
+  user: User!
+  # FK to Restaurant — auto-generates userSavedVenues_on_restaurant reverse relation
+  restaurant: Restaurant!
+  createdAt: Timestamp! @default(expr: "request.time")
+}

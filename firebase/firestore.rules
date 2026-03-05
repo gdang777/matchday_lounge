@@ -3,77 +3,75 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ──────────────────────────────────────────────
-    // Helper functions
-    // ──────────────────────────────────────────────
+    // ─── HELPERS ──────────────────────────────────────────────────────────────
 
     function isSignedIn() {
       return request.auth != null;
     }
 
-    function isOwner(uid) {
-      return isSignedIn() && request.auth.uid == uid;
-    }
-
-    function hasRole(role) {
-      return isSignedIn() &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
-    }
-
+    // Admin role is set as a Firebase Auth custom claim by Cloud Run.
     function isAdmin() {
-      return hasRole('admin');
+      return isSignedIn() && request.auth.token.admin == true;
     }
 
-    function isRestaurantOwner() {
-      return hasRole('restaurant_owner');
+    // True when the caller is the user who owns the document.
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
     }
 
-    // ──────────────────────────────────────────────
-    // Users collection
-    // ──────────────────────────────────────────────
 
-    match /users/{uid} {
-      allow read: if isOwner(uid) || isAdmin();
-      allow create: if isOwner(uid);
-      allow update: if isOwner(uid) || isAdmin();
-      allow delete: if isAdmin();
+    // ─── MATCH HUB ────────────────────────────────────────────────────────────
+    // Match fixtures, live scores, standings, group tables.
+    // Written exclusively by the Cloud Run scraper (Firebase Admin SDK — bypasses
+    // these rules). All client reads are public — no sign-in required to browse
+    // match schedules or live scores.
+    match /matchHub/{matchId} {
+      allow read: if true;
+      allow write: if false; // Admin SDK only — never written by clients
+
+      // Subcollections: standings, groupTables, liveEvents, etc.
+      match /{subcollection}/{docId} {
+        allow read: if true;
+        allow write: if false;
+      }
     }
 
-    // ──────────────────────────────────────────────
-    // Match live feed (real-time updates via Firestore)
-    // ──────────────────────────────────────────────
 
-    match /match_feeds/{matchId} {
-      allow read: if true; // Public
-      allow write: if isAdmin();
+    // ─── LIVE CHECK-INS ───────────────────────────────────────────────────────
+    // Fans checking in at a restaurant or venue during match day.
+    // Read by anyone for social proof ("12 fans here now").
+    // Created by signed-in fans only; the userId field must match the caller.
+    // Check-ins are immutable after creation; only the owner or an admin can delete.
+    match /checkins/{checkinId} {
+      allow read: if true;
+
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'restaurantId', 'city', 'createdAt']);
+
+      // Check-ins are immutable — no updates allowed.
+      allow update: if false;
+
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
     }
 
-    // ──────────────────────────────────────────────
-    // Restaurant listings
-    // ──────────────────────────────────────────────
 
-    match /restaurants/{restaurantId} {
-      allow read: if true; // Public
-      allow create: if isRestaurantOwner() || isAdmin();
-      allow update: if isAdmin() ||
-        (isRestaurantOwner() && resource.data.ownerId == request.auth.uid);
-      allow delete: if isAdmin();
+    // ─── PUSH NOTIFICATION STATE ──────────────────────────────────────────────
+    // One document per user: FCM token(s) and notification delivery state.
+    // Document ID = Firebase Auth UID.
+    // Users read and write their own document (FCM token registration on app launch).
+    // Cloud Run writes delivery state via Admin SDK (bypasses rules).
+    // No other user should ever read another user's push state.
+    match /pushState/{userId} {
+      allow read, write: if isOwner(userId);
     }
 
-    // ──────────────────────────────────────────────
-    // Fan notifications / push tokens
-    // ──────────────────────────────────────────────
 
-    match /push_tokens/{uid} {
-      allow read, write: if isOwner(uid);
-    }
-
-    // ──────────────────────────────────────────────
-    // Deny everything else
-    // ──────────────────────────────────────────────
-
+    // ─── DENY ALL ELSE ────────────────────────────────────────────────────────
+    // Explicit fallthrough denial. Any collection not listed above is locked.
     match /{document=**} {
       allow read, write: if false;
     }
+
   }
 }

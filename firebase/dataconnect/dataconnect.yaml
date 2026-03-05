@@ -1,0 +1,15 @@
+specVersion: "v1"
+serviceId: "matchdaylounge"
+location: "us-east4"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "matchdaylounge-fdc"
+        # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+        # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+# ./queries — production connector (restaurants, promotions, analytics, saved venues)
+# ./example — Firebase-generated sample connector; safe to delete once ./queries is in use
+connectorDirs: ["./queries"]

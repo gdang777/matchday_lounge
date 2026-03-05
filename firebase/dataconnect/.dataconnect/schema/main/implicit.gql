@@ -1,0 +1,22 @@
+extend type Promotion {
+  """
+  ✨ Implicit foreign key field based on `Promotion`.`restaurant`. It must match the value of `Restaurant`.`id`. See `@ref` for how to customize it.
+  """
+  restaurantId: UUID! @fdc_generated(from: "Promotion.restaurant", purpose: IMPLICIT_REF_FIELD)
+}
+extend type UserSavedVenue {
+  """
+  ✨ Implicit foreign key field based on `UserSavedVenue`.`restaurant`. It must match the value of `Restaurant`.`id`. See `@ref` for how to customize it.
+  """
+  restaurantId: UUID! @fdc_generated(from: "UserSavedVenue.restaurant", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `UserSavedVenue`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: String! @fdc_generated(from: "UserSavedVenue.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type VenueView {
+  """
+  ✨ Implicit foreign key field based on `VenueView`.`restaurant`. It must match the value of `Restaurant`.`id`. See `@ref` for how to customize it.
+  """
+  restaurantId: UUID! @fdc_generated(from: "VenueView.restaurant", purpose: IMPLICIT_REF_FIELD)
+}

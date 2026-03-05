@@ -1,0 +1,387 @@
+# ============================================================
+# MatchDay Lounge — Data Connect Mutations
+#
+# Auth strategy:
+#   NO_ACCESS mutations — Cloud Run API calls these via Admin SDK after
+#     performing ownership checks, input validation, and business logic.
+#   USER mutations — safe for direct SDK calls from authenticated clients.
+#   PUBLIC mutations — write-only analytics events, non-sensitive.
+#
+# All Cloud Run routes are in services/api/.
+# ============================================================
+
+
+# ─── RESTAURANT MUTATIONS (NO_ACCESS — Cloud Run only) ────────────────────────
+
+# CreateRestaurant
+# Creates a new restaurant record in the pending-approval state.
+# ownerUserId is the Firebase Auth UID of the owner, set by Cloud Run
+# from the authenticated request's decoded token — never trust the client.
+#
+# Cloud Run route: POST /api/restaurants
+#   1. Decode Firebase Auth token → get ownerUserId
+#   2. Validate inputs (name length, city enum, URL formats, etc.)
+#   3. Call this mutation via Admin SDK
+#   4. Notify admin panel (Firestore write or FCM push) of new submission
+mutation CreateRestaurant(
+  $ownerUserId: String!
+  $name: String!
+  $description: String
+  $city: City!
+  $neighborhood: String
+  $address: String
+  $cuisineType: String
+  $phoneNumber: String
+  $website: String
+  $googleMapsUrl: String
+  $photoUrls: String
+) @auth(level: NO_ACCESS) {
+  restaurant_insert(data: {
+    ownerUserId: $ownerUserId
+    name: $name
+    description: $description
+    city: $city
+    neighborhood: $neighborhood
+    address: $address
+    cuisineType: $cuisineType
+    phoneNumber: $phoneNumber
+    website: $website
+    googleMapsUrl: $googleMapsUrl
+    photoUrls: $photoUrls
+    # Approval and verification are always false on creation — admin must review
+    isVerified: false
+    isApproved: false
+    isSuspended: false
+    boostTier: STANDARD
+  })
+}
+
+
+# UpdateRestaurant
+# Partial update of a restaurant's profile fields.
+# Null variables are ignored (field not overwritten) — pass only fields to change.
+# updatedAt is always refreshed to request.time regardless of which fields changed.
+#
+# Cloud Run route: PATCH /api/restaurants/:id
+#   1. Verify caller Firebase Auth UID === restaurant.ownerUserId (or admin claim)
+#   2. Validate changed fields
+#   3. Call this mutation
+mutation UpdateRestaurant(
+  $id: UUID!
+  $name: String
+  $description: String
+  $neighborhood: String
+  $address: String
+  $cuisineType: String
+  $phoneNumber: String
+  $website: String
+  $googleMapsUrl: String
+  $photoUrls: String
+) @auth(level: NO_ACCESS) {
+  restaurant_update(
+    id: $id
+    data: {
+      name: $name
+      description: $description
+      neighborhood: $neighborhood
+      address: $address
+      cuisineType: $cuisineType
+      phoneNumber: $phoneNumber
+      website: $website
+      googleMapsUrl: $googleMapsUrl
+      photoUrls: $photoUrls
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# ─── PROMOTION MUTATIONS (NO_ACCESS — Cloud Run only) ─────────────────────────
+
+# CreatePromotion
+# Creates a promotion for a restaurant.
+# isApproved must be set by Cloud Run based on source:
+#   PARTNER       → isApproved: true  (restaurant owner entering their own deal)
+#   SCRAPED       → isApproved: false (requires admin review)
+#   USER_SUBMITTED → isApproved: false (requires admin review)
+#
+# Cloud Run route: POST /api/restaurants/:restaurantId/promotions
+#   1. Verify caller owns the restaurant (for PARTNER) or is anonymous/user (USER_SUBMITTED)
+#   2. Validate description length <= 500 chars
+#   3. Set isApproved based on source enum
+#   4. Wrap description in JSON before any Claude summarisation
+mutation CreatePromotion(
+  $restaurantId: UUID!
+  $name: String!
+  $description: String!
+  $dealType: DealType!
+  $daysOfWeek: String!
+  $startTime: String!
+  $endTime: String!
+  $source: PromotionSource!
+  $isApproved: Boolean!
+  $submittedByUserId: String
+) @auth(level: NO_ACCESS) {
+  promotion_insert(data: {
+    restaurantId: $restaurantId
+    name: $name
+    description: $description
+    dealType: $dealType
+    daysOfWeek: $daysOfWeek
+    startTime: $startTime
+    endTime: $endTime
+    source: $source
+    isApproved: $isApproved
+    submittedByUserId: $submittedByUserId
+    isActive: true
+    flagCount: 0
+  })
+}
+
+
+# UpdatePromotion
+# Partial update of a promotion's schedule and content.
+# Null variables are ignored — pass only the fields being changed.
+# updatedAt is always refreshed.
+#
+# Cloud Run route: PATCH /api/promotions/:id
+#   1. Verify caller Firebase Auth UID matches restaurant.ownerUserId (or admin claim)
+#   2. Re-validate description length if description is being updated
+mutation UpdatePromotion(
+  $id: UUID!
+  $name: String
+  $description: String
+  $dealType: DealType
+  $daysOfWeek: String
+  $startTime: String
+  $endTime: String
+) @auth(level: NO_ACCESS) {
+  promotion_update(
+    id: $id
+    data: {
+      name: $name
+      description: $description
+      dealType: $dealType
+      daysOfWeek: $daysOfWeek
+      startTime: $startTime
+      endTime: $endTime
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# TogglePromotionActive
+# Flips isActive without touching any other fields.
+# Used by the restaurant portal's "Pause/Resume" toggle.
+# Also called by Cloud Run when flagCount crosses the auto-deactivation threshold.
+#
+# Cloud Run route: PATCH /api/promotions/:id/toggle
+#   1. Verify ownership or admin claim
+mutation TogglePromotionActive($id: UUID!, $isActive: Boolean!) @auth(level: NO_ACCESS) {
+  promotion_update(
+    id: $id
+    data: {
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# ─── ANALYTICS MUTATIONS (PUBLIC — write-only, non-sensitive) ─────────────────
+
+# RecordVenueView
+# Appends a view event to the VenueViews analytics table.
+# Called on every list card impression, profile screen open, and map pin tap.
+# PUBLIC because anonymous users (pre-sign-in) must also be tracked.
+# userId is null for anonymous sessions — set it from Firebase Auth UID when available.
+#
+# Called directly from the mobile SDK (no Cloud Run intermediary needed).
+mutation RecordVenueView(
+  $restaurantId: UUID!
+  $userId: String
+  $viewType: ViewType!
+  $city: City!
+) @auth(level: PUBLIC, insecureReason: "Write-only analytics event — no data is read back, and no PII is at risk.") {
+  venueView_insert(data: {
+    restaurantId: $restaurantId
+    userId: $userId
+    viewType: $viewType
+    city: $city
+  })
+}
+
+
+# ─── USER MUTATIONS (USER — authenticated clients) ────────────────────────────
+
+# SaveVenue
+# Saves a restaurant to the authenticated user's saved venues list.
+# Called directly from the mobile SDK with USER auth (no Cloud Run needed).
+#
+# userId is set server-side via auth.uid — the caller never passes their own ID.
+# Since User.id IS the Firebase Auth UID, userId_expr: "auth.uid" sets the FK
+# correctly without any mapping lookup.
+# Cloud Run must check for an existing save (same userId + restaurantId) before
+# calling this mutation to prevent duplicate rows.
+mutation SaveVenue($restaurantId: UUID!) @auth(level: USER) {
+  userSavedVenue_insert(data: {
+    userId_expr: "auth.uid"
+    restaurantId: $restaurantId
+  })
+}
+
+
+# UnsaveVenue
+# Removes a restaurant from the authenticated user's saved venues list.
+# Cloud Run route: DELETE /api/users/saved-venues/:restaurantId
+mutation UnsaveVenue($restaurantId: UUID!, $userId: String!) @auth(level: NO_ACCESS) {
+  userSavedVenue_delete(key: {
+    userId:       $userId
+    restaurantId: $restaurantId
+  })
+}
+
+
+# ─── USER PROFILE (NO_ACCESS — Cloud Run sync on first sign-in) ───────────────
+
+# UpsertUser
+# Creates or updates a user's profile record in Cloud SQL.
+# Called by Cloud Run on first sign-in (POST /api/auth/sync).
+# The user.id is the Firebase Auth UID — passed from the decoded token, never
+# from the request body.
+#
+# Cloud Run route: POST /api/auth/sync
+mutation UpsertUser(
+  $id: String!
+  $email: String!
+  $displayName: String
+  $city: City
+) @auth(level: NO_ACCESS) {
+  user_upsert(data: {
+    id: $id
+    email: $email
+    displayName: $displayName
+    city: $city
+  })
+}
+
+
+# ─── ADMIN MUTATIONS (NO_ACCESS — Cloud Run admin routes only) ─────────────────
+
+# ApproveRestaurant
+# Admin approves a pending restaurant listing, making it visible in the app.
+# Optionally marks as verified (ownership docs confirmed).
+#
+# Cloud Run route: POST /api/admin/restaurants/:id/approve
+#   — requires admin custom claim on caller's Firebase Auth token
+mutation ApproveRestaurant($id: UUID!, $isVerified: Boolean!) @auth(level: NO_ACCESS) {
+  restaurant_update(
+    id: $id
+    data: {
+      isApproved: true
+      isVerified: $isVerified
+      isSuspended: false
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# SuspendRestaurant
+# Admin suspends (or un-suspends) a restaurant.
+# Suspended restaurants are hidden from all public queries immediately.
+#
+# Cloud Run route: POST /api/admin/restaurants/:id/suspend
+mutation SuspendRestaurant($id: UUID!, $isSuspended: Boolean!) @auth(level: NO_ACCESS) {
+  restaurant_update(
+    id: $id
+    data: {
+      isSuspended: $isSuspended
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# ApprovePromotion
+# Admin approves a SCRAPED or USER_SUBMITTED promotion, making it live.
+# PARTNER promotions are auto-approved at insert time by Cloud Run.
+#
+# Cloud Run route: POST /api/admin/promotions/:id/approve
+mutation ApprovePromotion($id: UUID!) @auth(level: NO_ACCESS) {
+  promotion_update(
+    id: $id
+    data: {
+      isApproved: true
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# IncrementPromotionFlagCount
+# Increments the flag count when a user reports a promotion as inaccurate.
+# Cloud Run checks the new count and calls TogglePromotionActive if threshold is reached.
+# Using _update with arithmetic expression is not supported in Data Connect MVP —
+# Cloud Run reads current count, increments in application code, then writes back.
+#
+# Cloud Run route: POST /api/promotions/:id/flag
+mutation SetPromotionFlagCount($id: UUID!, $flagCount: Int!, $isActive: Boolean!) @auth(level: NO_ACCESS) {
+  promotion_update(
+    id: $id
+    data: {
+      flagCount: $flagCount
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+
+# ─── STRIPE WEBHOOK MUTATIONS (NO_ACCESS — Stripe webhook handler only) ────────
+
+# UpdateUserProStatus
+# Called by the Stripe webhook handler when a fan's Pro subscription
+# is created, renewed, or cancelled.
+# proExpiresAt: set to subscription.current_period_end on active; null on cancel.
+#
+# Cloud Run route: POST /api/stripe/webhook (internal, not a public API route)
+mutation UpdateUserProStatus(
+  $id: String!
+  $isPro: Boolean!
+  $proExpiresAt: Timestamp
+  $stripeCustomerId: String
+) @auth(level: NO_ACCESS) {
+  user_update(
+    id: $id
+    data: {
+      isPro: $isPro
+      proExpiresAt: $proExpiresAt
+      stripeCustomerId: $stripeCustomerId
+    }
+  )
+}
+
+
+# UpdateRestaurantBoostTier
+# Called by the Stripe webhook handler when a restaurant's boost subscription
+# changes. Sets the tier and expiry; on cancel, tier reverts to STANDARD.
+#
+# Cloud Run route: POST /api/stripe/webhook (internal, not a public API route)
+mutation UpdateRestaurantBoostTier(
+  $id: UUID!
+  $boostTier: BoostTier!
+  $boostExpiresAt: Timestamp
+  $stripeSubscriptionId: String
+) @auth(level: NO_ACCESS) {
+  restaurant_update(
+    id: $id
+    data: {
+      boostTier: $boostTier
+      boostExpiresAt: $boostExpiresAt
+      stripeSubscriptionId: $stripeSubscriptionId
+      updatedAt_expr: "request.time"
+    }
+  )
+}

@@ -1,23 +1,21 @@
-connectorId: example
+connectorId: matchday
 generate:
   javascriptSdk:
-    - outputDir: ../../../src/dataconnect-generated
-      package: "@dataconnect/generated"
-      packageJsonDir: ../../..
-      react: false
-      angular: false
+    # Restaurant portal (React + Vite)
     - outputDir: ../../../apps/restaurant/src/dataconnect-generated
-      package: "@dataconnect/generated"
+      package: "@dataconnect/matchday"
       packageJsonDir: ../../../apps/restaurant
       react: true
       angular: false
+    # Admin panel (React + Vite)
     - outputDir: ../../../apps/admin/src/dataconnect-generated
-      package: "@dataconnect/generated"
+      package: "@dataconnect/matchday"
       packageJsonDir: ../../../apps/admin
       react: true
       angular: false
+    # Mobile app (React Native + Expo) — react: true generates hooks compatible with RN
     - outputDir: ../../../apps/mobile/src/dataconnect-generated
-      package: "@dataconnect/generated"
+      package: "@dataconnect/matchday"
       packageJsonDir: ../../../apps/mobile
       react: true
       angular: false

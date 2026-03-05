@@ -1,116 +1,198 @@
 const { queryRef, executeQuery, mutationRef, executeMutation, validateArgs } = require('firebase/data-connect');
 
+const BoostTier = {
+  STANDARD: "STANDARD",
+  FEATURED: "FEATURED",
+  PREMIUM: "PREMIUM",
+}
+exports.BoostTier = BoostTier;
+
+const City = {
+  VANCOUVER: "VANCOUVER",
+  TORONTO: "TORONTO",
+}
+exports.City = City;
+
+const DealType = {
+  DRINKS: "DRINKS",
+  FOOD: "FOOD",
+  BOTH: "BOTH",
+}
+exports.DealType = DealType;
+
+const PromotionSource = {
+  PARTNER: "PARTNER",
+  SCRAPED: "SCRAPED",
+  USER_SUBMITTED: "USER_SUBMITTED",
+}
+exports.PromotionSource = PromotionSource;
+
+const ViewType = {
+  LISTING: "LISTING",
+  PROFILE: "PROFILE",
+  MAP_PIN: "MAP_PIN",
+}
+exports.ViewType = ViewType;
+
 const connectorConfig = {
-  connector: 'example',
+  connector: 'matchday',
   service: 'matchdaylounge',
   location: 'us-east4'
 };
 exports.connectorConfig = connectorConfig;
 
-const createMovieRef = (dcOrVars, vars) => {
+const createRestaurantRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateMovie', inputVars);
+  return mutationRef(dcInstance, 'CreateRestaurant', inputVars);
 }
-createMovieRef.operationName = 'CreateMovie';
-exports.createMovieRef = createMovieRef;
+createRestaurantRef.operationName = 'CreateRestaurant';
+exports.createRestaurantRef = createRestaurantRef;
 
-exports.createMovie = function createMovie(dcOrVars, vars) {
-  return executeMutation(createMovieRef(dcOrVars, vars));
+exports.createRestaurant = function createRestaurant(dcOrVars, vars) {
+  return executeMutation(createRestaurantRef(dcOrVars, vars));
 };
 
-const upsertUserRef = (dcOrVars, vars) => {
+const updateRestaurantRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'UpsertUser', inputVars);
+  return mutationRef(dcInstance, 'UpdateRestaurant', inputVars);
 }
-upsertUserRef.operationName = 'UpsertUser';
-exports.upsertUserRef = upsertUserRef;
+updateRestaurantRef.operationName = 'UpdateRestaurant';
+exports.updateRestaurantRef = updateRestaurantRef;
 
-exports.upsertUser = function upsertUser(dcOrVars, vars) {
-  return executeMutation(upsertUserRef(dcOrVars, vars));
+exports.updateRestaurant = function updateRestaurant(dcOrVars, vars) {
+  return executeMutation(updateRestaurantRef(dcOrVars, vars));
 };
 
-const addReviewRef = (dcOrVars, vars) => {
+const createPromotionRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'AddReview', inputVars);
+  return mutationRef(dcInstance, 'CreatePromotion', inputVars);
 }
-addReviewRef.operationName = 'AddReview';
-exports.addReviewRef = addReviewRef;
+createPromotionRef.operationName = 'CreatePromotion';
+exports.createPromotionRef = createPromotionRef;
 
-exports.addReview = function addReview(dcOrVars, vars) {
-  return executeMutation(addReviewRef(dcOrVars, vars));
+exports.createPromotion = function createPromotion(dcOrVars, vars) {
+  return executeMutation(createPromotionRef(dcOrVars, vars));
 };
 
-const deleteReviewRef = (dcOrVars, vars) => {
+const updatePromotionRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'DeleteReview', inputVars);
+  return mutationRef(dcInstance, 'UpdatePromotion', inputVars);
 }
-deleteReviewRef.operationName = 'DeleteReview';
-exports.deleteReviewRef = deleteReviewRef;
+updatePromotionRef.operationName = 'UpdatePromotion';
+exports.updatePromotionRef = updatePromotionRef;
 
-exports.deleteReview = function deleteReview(dcOrVars, vars) {
-  return executeMutation(deleteReviewRef(dcOrVars, vars));
+exports.updatePromotion = function updatePromotion(dcOrVars, vars) {
+  return executeMutation(updatePromotionRef(dcOrVars, vars));
 };
 
-const listMoviesRef = (dc) => {
+const togglePromotionActiveRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'TogglePromotionActive', inputVars);
+}
+togglePromotionActiveRef.operationName = 'TogglePromotionActive';
+exports.togglePromotionActiveRef = togglePromotionActiveRef;
+
+exports.togglePromotionActive = function togglePromotionActive(dcOrVars, vars) {
+  return executeMutation(togglePromotionActiveRef(dcOrVars, vars));
+};
+
+const recordVenueViewRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'RecordVenueView', inputVars);
+}
+recordVenueViewRef.operationName = 'RecordVenueView';
+exports.recordVenueViewRef = recordVenueViewRef;
+
+exports.recordVenueView = function recordVenueView(dcOrVars, vars) {
+  return executeMutation(recordVenueViewRef(dcOrVars, vars));
+};
+
+const saveVenueRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'SaveVenue', inputVars);
+}
+saveVenueRef.operationName = 'SaveVenue';
+exports.saveVenueRef = saveVenueRef;
+
+exports.saveVenue = function saveVenue(dcOrVars, vars) {
+  return executeMutation(saveVenueRef(dcOrVars, vars));
+};
+
+const getRestaurantsByCityRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetRestaurantsByCity', inputVars);
+}
+getRestaurantsByCityRef.operationName = 'GetRestaurantsByCity';
+exports.getRestaurantsByCityRef = getRestaurantsByCityRef;
+
+exports.getRestaurantsByCity = function getRestaurantsByCity(dcOrVars, vars) {
+  return executeQuery(getRestaurantsByCityRef(dcOrVars, vars));
+};
+
+const getActivePromotionsByRestaurantRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetActivePromotionsByRestaurant', inputVars);
+}
+getActivePromotionsByRestaurantRef.operationName = 'GetActivePromotionsByRestaurant';
+exports.getActivePromotionsByRestaurantRef = getActivePromotionsByRestaurantRef;
+
+exports.getActivePromotionsByRestaurant = function getActivePromotionsByRestaurant(dcOrVars, vars) {
+  return executeQuery(getActivePromotionsByRestaurantRef(dcOrVars, vars));
+};
+
+const getActiveHappyHoursNowRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetActiveHappyHoursNow', inputVars);
+}
+getActiveHappyHoursNowRef.operationName = 'GetActiveHappyHoursNow';
+exports.getActiveHappyHoursNowRef = getActiveHappyHoursNowRef;
+
+exports.getActiveHappyHoursNow = function getActiveHappyHoursNow(dcOrVars, vars) {
+  return executeQuery(getActiveHappyHoursNowRef(dcOrVars, vars));
+};
+
+const getPendingApprovalRestaurantsRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListMovies');
+  return queryRef(dcInstance, 'GetPendingApprovalRestaurants');
 }
-listMoviesRef.operationName = 'ListMovies';
-exports.listMoviesRef = listMoviesRef;
+getPendingApprovalRestaurantsRef.operationName = 'GetPendingApprovalRestaurants';
+exports.getPendingApprovalRestaurantsRef = getPendingApprovalRestaurantsRef;
 
-exports.listMovies = function listMovies(dc) {
-  return executeQuery(listMoviesRef(dc));
+exports.getPendingApprovalRestaurants = function getPendingApprovalRestaurants(dc) {
+  return executeQuery(getPendingApprovalRestaurantsRef(dc));
 };
 
-const listUsersRef = (dc) => {
+const getPendingApprovalPromotionsRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListUsers');
+  return queryRef(dcInstance, 'GetPendingApprovalPromotions');
 }
-listUsersRef.operationName = 'ListUsers';
-exports.listUsersRef = listUsersRef;
+getPendingApprovalPromotionsRef.operationName = 'GetPendingApprovalPromotions';
+exports.getPendingApprovalPromotionsRef = getPendingApprovalPromotionsRef;
 
-exports.listUsers = function listUsers(dc) {
-  return executeQuery(listUsersRef(dc));
+exports.getPendingApprovalPromotions = function getPendingApprovalPromotions(dc) {
+  return executeQuery(getPendingApprovalPromotionsRef(dc));
 };
 
-const listUserReviewsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListUserReviews');
-}
-listUserReviewsRef.operationName = 'ListUserReviews';
-exports.listUserReviewsRef = listUserReviewsRef;
-
-exports.listUserReviews = function listUserReviews(dc) {
-  return executeQuery(listUserReviewsRef(dc));
-};
-
-const getMovieByIdRef = (dcOrVars, vars) => {
+const getRestaurantAnalyticsRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetMovieById', inputVars);
+  return queryRef(dcInstance, 'GetRestaurantAnalytics', inputVars);
 }
-getMovieByIdRef.operationName = 'GetMovieById';
-exports.getMovieByIdRef = getMovieByIdRef;
+getRestaurantAnalyticsRef.operationName = 'GetRestaurantAnalytics';
+exports.getRestaurantAnalyticsRef = getRestaurantAnalyticsRef;
 
-exports.getMovieById = function getMovieById(dcOrVars, vars) {
-  return executeQuery(getMovieByIdRef(dcOrVars, vars));
-};
-
-const searchMovieRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'SearchMovie', inputVars);
-}
-searchMovieRef.operationName = 'SearchMovie';
-exports.searchMovieRef = searchMovieRef;
-
-exports.searchMovie = function searchMovie(dcOrVars, vars) {
-  return executeQuery(searchMovieRef(dcOrVars, vars));
+exports.getRestaurantAnalytics = function getRestaurantAnalytics(dcOrVars, vars) {
+  return executeQuery(getRestaurantAnalyticsRef(dcOrVars, vars));
 };

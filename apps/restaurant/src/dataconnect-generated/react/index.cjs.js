@@ -1,66 +1,96 @@
-const { createMovieRef, upsertUserRef, addReviewRef, deleteReviewRef, listMoviesRef, listUsersRef, listUserReviewsRef, getMovieByIdRef, searchMovieRef, connectorConfig } = require('../index.cjs.js');
+const { createRestaurantRef, updateRestaurantRef, createPromotionRef, updatePromotionRef, togglePromotionActiveRef, recordVenueViewRef, saveVenueRef, getRestaurantsByCityRef, getActivePromotionsByRestaurantRef, getActiveHappyHoursNowRef, getPendingApprovalRestaurantsRef, getPendingApprovalPromotionsRef, getRestaurantAnalyticsRef, connectorConfig } = require('../index.cjs.js');
 const { validateArgs, CallerSdkTypeEnum } = require('firebase/data-connect');
 const { useDataConnectQuery, useDataConnectMutation, validateReactArgs } = require('@tanstack-query-firebase/react/data-connect');
 
-exports.useCreateMovie = function useCreateMovie(dcOrOptions, options) {
+exports.useCreateRestaurant = function useCreateRestaurant(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return createMovieRef(dcInstance, vars);
+    return createRestaurantRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
 
-exports.useUpsertUser = function useUpsertUser(dcOrOptions, options) {
+exports.useUpdateRestaurant = function useUpdateRestaurant(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return upsertUserRef(dcInstance, vars);
+    return updateRestaurantRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
 
-exports.useAddReview = function useAddReview(dcOrOptions, options) {
+exports.useCreatePromotion = function useCreatePromotion(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return addReviewRef(dcInstance, vars);
+    return createPromotionRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
 
-exports.useDeleteReview = function useDeleteReview(dcOrOptions, options) {
+exports.useUpdatePromotion = function useUpdatePromotion(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return deleteReviewRef(dcInstance, vars);
+    return updatePromotionRef(dcInstance, vars);
+  }
+  return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useTogglePromotionActive = function useTogglePromotionActive(dcOrOptions, options) {
+  const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
+  function refFactory(vars) {
+    return togglePromotionActiveRef(dcInstance, vars);
+  }
+  return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useRecordVenueView = function useRecordVenueView(dcOrOptions, options) {
+  const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
+  function refFactory(vars) {
+    return recordVenueViewRef(dcInstance, vars);
+  }
+  return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useSaveVenue = function useSaveVenue(dcOrOptions, options) {
+  const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
+  function refFactory(vars) {
+    return saveVenueRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
 
 
-exports.useListMovies = function useListMovies(dcOrOptions, options) {
-  const { dc: dcInstance, options: inputOpts } = validateReactArgs(connectorConfig, dcOrOptions, options);
-  const ref = listMoviesRef(dcInstance);
-  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
-}
-
-exports.useListUsers = function useListUsers(dcOrOptions, options) {
-  const { dc: dcInstance, options: inputOpts } = validateReactArgs(connectorConfig, dcOrOptions, options);
-  const ref = listUsersRef(dcInstance);
-  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
-}
-
-exports.useListUserReviews = function useListUserReviews(dcOrOptions, options) {
-  const { dc: dcInstance, options: inputOpts } = validateReactArgs(connectorConfig, dcOrOptions, options);
-  const ref = listUserReviewsRef(dcInstance);
-  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
-}
-
-exports.useGetMovieById = function useGetMovieById(dcOrVars, varsOrOptions, options) {
+exports.useGetRestaurantsByCity = function useGetRestaurantsByCity(dcOrVars, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateReactArgs(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
-  const ref = getMovieByIdRef(dcInstance, inputVars);
+  const ref = getRestaurantsByCityRef(dcInstance, inputVars);
   return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
 
-exports.useSearchMovie = function useSearchMovie(dcOrVars, varsOrOptions, options) {
-  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateReactArgs(connectorConfig, dcOrVars, varsOrOptions, options, true, false);
-  const ref = searchMovieRef(dcInstance, inputVars);
+exports.useGetActivePromotionsByRestaurant = function useGetActivePromotionsByRestaurant(dcOrVars, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateReactArgs(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  const ref = getActivePromotionsByRestaurantRef(dcInstance, inputVars);
+  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useGetActiveHappyHoursNow = function useGetActiveHappyHoursNow(dcOrVars, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateReactArgs(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  const ref = getActiveHappyHoursNowRef(dcInstance, inputVars);
+  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useGetPendingApprovalRestaurants = function useGetPendingApprovalRestaurants(dcOrOptions, options) {
+  const { dc: dcInstance, options: inputOpts } = validateReactArgs(connectorConfig, dcOrOptions, options);
+  const ref = getPendingApprovalRestaurantsRef(dcInstance);
+  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useGetPendingApprovalPromotions = function useGetPendingApprovalPromotions(dcOrOptions, options) {
+  const { dc: dcInstance, options: inputOpts } = validateReactArgs(connectorConfig, dcOrOptions, options);
+  const ref = getPendingApprovalPromotionsRef(dcInstance);
+  return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
+}
+
+exports.useGetRestaurantAnalytics = function useGetRestaurantAnalytics(dcOrVars, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts } = validateReactArgs(connectorConfig, dcOrVars, varsOrOptions, options, true, true);
+  const ref = getRestaurantAnalyticsRef(dcInstance, inputVars);
   return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }

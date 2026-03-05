@@ -1,0 +1,572 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Promotion` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  promotion_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Promotion_Data!
+  ): Promotion_KeyOutput! @fdc_generated(from: "Promotion", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Restaurant` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  restaurant_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Restaurant_Data!
+  ): Restaurant_KeyOutput! @fdc_generated(from: "Restaurant", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `UserSavedVenue` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  userSavedVenue_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: UserSavedVenue_Data!
+  ): UserSavedVenue_KeyOutput! @fdc_generated(from: "UserSavedVenue", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `VenueView` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  venueView_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: VenueView_Data!
+  ): VenueView_KeyOutput! @fdc_generated(from: "VenueView", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Promotion` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  promotion_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Promotion_Data!]!
+  ): [Promotion_KeyOutput!]! @fdc_generated(from: "Promotion", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Restaurant` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  restaurant_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Restaurant_Data!]!
+  ): [Restaurant_KeyOutput!]! @fdc_generated(from: "Restaurant", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `UserSavedVenue` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  userSavedVenue_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [UserSavedVenue_Data!]!
+  ): [UserSavedVenue_KeyOutput!]! @fdc_generated(from: "UserSavedVenue", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `VenueView` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  venueView_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [VenueView_Data!]!
+  ): [VenueView_KeyOutput!]! @fdc_generated(from: "VenueView", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Promotion` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Promotion`.
+  """
+  promotion_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Promotion_Data!
+  ): Promotion_KeyOutput! @fdc_generated(from: "Promotion", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Restaurant` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Restaurant`.
+  """
+  restaurant_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Restaurant_Data!
+  ): Restaurant_KeyOutput! @fdc_generated(from: "Restaurant", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `UserSavedVenue` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `UserSavedVenue`.
+  """
+  userSavedVenue_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: UserSavedVenue_Data!
+  ): UserSavedVenue_KeyOutput! @fdc_generated(from: "UserSavedVenue", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `VenueView` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `VenueView`.
+  """
+  venueView_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: VenueView_Data!
+  ): VenueView_KeyOutput! @fdc_generated(from: "VenueView", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Promotion` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Promotion`.
+  """
+  promotion_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Promotion_Data!]!
+  ): [Promotion_KeyOutput!]! @fdc_generated(from: "Promotion", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Restaurant` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Restaurant`.
+  """
+  restaurant_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Restaurant_Data!]!
+  ): [Restaurant_KeyOutput!]! @fdc_generated(from: "Restaurant", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `UserSavedVenue` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `UserSavedVenue`.
+  """
+  userSavedVenue_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [UserSavedVenue_Data!]!
+  ): [UserSavedVenue_KeyOutput!]! @fdc_generated(from: "UserSavedVenue", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `VenueView` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `VenueView`.
+  """
+  venueView_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [VenueView_Data!]!
+  ): [VenueView_KeyOutput!]! @fdc_generated(from: "VenueView", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Promotion` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Promotion` or `null` if not found.
+  """
+  promotion_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Promotion_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Promotion_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Promotion_Data!
+  ): Promotion_KeyOutput @fdc_generated(from: "Promotion", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Restaurant` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Restaurant` or `null` if not found.
+  """
+  restaurant_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Restaurant_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Restaurant_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Restaurant_Data!
+  ): Restaurant_KeyOutput @fdc_generated(from: "Restaurant", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: String
+
+    """
+    ✨ `_expr` server value variant of `id` (The unique ID of the object.)
+    """
+    id_expr: String_Expr
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `UserSavedVenue` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `UserSavedVenue` or `null` if not found.
+  """
+  userSavedVenue_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: UserSavedVenue_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: UserSavedVenue_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: UserSavedVenue_Data!
+  ): UserSavedVenue_KeyOutput @fdc_generated(from: "UserSavedVenue", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `VenueView` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `VenueView` or `null` if not found.
+  """
+  venueView_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: VenueView_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: VenueView_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: VenueView_Data!
+  ): VenueView_KeyOutput @fdc_generated(from: "VenueView", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Promotion` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  promotion_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Promotion_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Promotion_Data!
+  ): Int! @fdc_generated(from: "Promotion", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Restaurant` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  restaurant_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Restaurant_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Restaurant_Data!
+  ): Int! @fdc_generated(from: "Restaurant", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `UserSavedVenue` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  userSavedVenue_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: UserSavedVenue_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: UserSavedVenue_Data!
+  ): Int! @fdc_generated(from: "UserSavedVenue", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `VenueView` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  venueView_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: VenueView_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: VenueView_Data!
+  ): Int! @fdc_generated(from: "VenueView", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Promotion` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  promotion_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Promotion_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Promotion_FirstRow
+  ): Promotion_KeyOutput @fdc_generated(from: "Promotion", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Restaurant` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  restaurant_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Restaurant_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Restaurant_FirstRow
+  ): Restaurant_KeyOutput @fdc_generated(from: "Restaurant", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: String
+
+    """
+    ✨ `_expr` server value variant of `id` (The unique ID of the object.)
+    """
+    id_expr: String_Expr
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `UserSavedVenue` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  userSavedVenue_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: UserSavedVenue_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: UserSavedVenue_FirstRow
+  ): UserSavedVenue_KeyOutput @fdc_generated(from: "UserSavedVenue", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `VenueView` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  venueView_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: VenueView_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: VenueView_FirstRow
+  ): VenueView_KeyOutput @fdc_generated(from: "VenueView", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Promotion` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  promotion_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Promotion_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Promotion", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Restaurant` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  restaurant_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Restaurant_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Restaurant", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `UserSavedVenue` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  userSavedVenue_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: UserSavedVenue_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "UserSavedVenue", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `VenueView` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  venueView_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: VenueView_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "VenueView", purpose: DELETE_MULTIPLE)
+}

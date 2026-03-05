@@ -1,0 +1,380 @@
+# ============================================================
+# MatchDay Lounge — Data Connect Queries
+#
+# Auth levels used in this file:
+#   PUBLIC    — no sign-in required (fan discovery features)
+#   USER      — requires Firebase Auth sign-in
+#   NO_ACCESS — direct client calls blocked; must go through
+#               Cloud Run API using the Firebase Admin SDK
+# ============================================================
+
+
+# ─── PUBLIC RESTAURANT QUERIES ────────────────────────────────────────────────
+
+# GetRestaurantsByCity
+# Returns all approved, non-suspended restaurants in a city.
+# Ordered: PREMIUM → FEATURED → STANDARD (boost tier priority), then alphabetically.
+#
+# Used by: mobile Happy Hour Finder (list view), City Nav (map pin pre-load)
+#
+# Note: optional boostTier filtering (e.g. show only FEATURED+) should be applied
+# client-side after this call. Avoids a separate index and keeps the query simple.
+query GetRestaurantsByCity($city: City!) @auth(level: PUBLIC, insecureReason: "Public restaurant directory — no PII or sensitive data returned.") {
+  restaurants(
+    where: {
+      _and: [
+        { city: { eq: $city } }
+        { isApproved: { eq: true } }
+        { isSuspended: { eq: false } }
+      ]
+    }
+    orderBy: [{ boostTier: DESC }, { name: ASC }]
+  ) {
+    id
+    name
+    description
+    city
+    neighborhood
+    address
+    cuisineType
+    phoneNumber
+    website
+    googleMapsUrl
+    photoUrls
+    boostTier
+    isVerified
+  }
+}
+
+
+# GetActivePromotionsByRestaurant
+# Returns all active, approved promotions for a single restaurant.
+# Ordered by start time so the earliest daily deal shows first.
+#
+# Used by: restaurant detail screen, AI Concierge context assembly
+# (promotion descriptions are JSON-wrapped before passing to Claude)
+query GetActivePromotionsByRestaurant($restaurantId: UUID!) @auth(level: PUBLIC, insecureReason: "Public promotion listings — no PII returned.") {
+  promotions(
+    where: {
+      _and: [
+        { restaurantId: { eq: $restaurantId } }
+        { isActive: { eq: true } }
+        { isApproved: { eq: true } }
+      ]
+    }
+    orderBy: [{ startTime: ASC }]
+  ) {
+    id
+    name
+    description
+    dealType
+    daysOfWeek
+    startTime
+    endTime
+    source
+  }
+}
+
+
+# GetActiveHappyHoursNow — THE CRITICAL QUERY
+# Powers the Happy Hour Finder "Open Now" toggle. Called on every filter activation
+# and City Nav map load. Must be fast.
+#
+# Parameters:
+#   city        — VANCOUVER or TORONTO
+#   currentDay  — 3-letter uppercase day code from the device clock, e.g. "MON", "SAT"
+#   currentTime — current local time in "HH:MM" 24h format, e.g. "17:30"
+#
+# Filtering logic:
+#   1. Restaurant: correct city, approved, not suspended
+#   2. Promotion: isActive=true, isApproved=true
+#   3. daysOfWeek contains currentDay (string contains — valid since codes are unique 3-char)
+#   4. startTime <= currentTime (lexicographic compare is correct for "HH:MM" format)
+#   5. endTime   >= currentTime
+#
+# Caveat: happy hours crossing midnight (e.g. 22:00–02:00) are out of scope for MVP.
+# Handle at the mobile client by showing a "crosses midnight" badge and adjusting logic.
+#
+# Recommended Postgres indexes (add via Cloud SQL console or migration):
+#   CREATE INDEX idx_promotions_open_now
+#     ON "Promotions" (is_active, is_approved, days_of_week, start_time, end_time);
+#   CREATE INDEX idx_restaurants_city_approved
+#     ON "Restaurants" (city, is_approved, is_suspended);
+query GetActiveHappyHoursNow($city: City!, $currentDay: String!, $currentTime: String!) @auth(level: PUBLIC, insecureReason: "Core discovery feature — must work for unauthenticated users on first launch.") {
+  promotions(
+    where: {
+      _and: [
+        { restaurant: { city: { eq: $city }, isApproved: { eq: true }, isSuspended: { eq: false } } }
+        { isActive: { eq: true } }
+        { isApproved: { eq: true } }
+        { daysOfWeek: { contains: $currentDay } }
+        { startTime: { le: $currentTime } }
+        { endTime: { ge: $currentTime } }
+      ]
+    }
+    orderBy: [{ startTime: ASC }]
+  ) {
+    id
+    name
+    description
+    dealType
+    startTime
+    endTime
+    daysOfWeek
+    restaurant {
+      id
+      name
+      address
+      neighborhood
+      city
+      boostTier
+      photoUrls
+      googleMapsUrl
+      isVerified
+    }
+  }
+}
+
+
+# ─── ADMIN QUERIES (NO_ACCESS — Cloud Run only) ───────────────────────────────
+# These queries are intentionally blocked from direct client calls.
+# Route them through Cloud Run endpoints that verify admin role via
+# Firebase Auth custom claims before calling Data Connect with the Admin SDK.
+
+
+# GetPendingApprovalRestaurants
+# Returns restaurants that have been submitted but not yet approved by an admin.
+# Ordered oldest-first so reviewers work through the queue in submission order.
+#
+# Cloud Run route: GET /api/admin/restaurants/pending
+query GetPendingApprovalRestaurants @auth(level: NO_ACCESS) {
+  restaurants(
+    where: {
+      _and: [
+        { isApproved: { eq: false } }
+        { isSuspended: { eq: false } }
+      ]
+    }
+    orderBy: [{ createdAt: ASC }]
+  ) {
+    id
+    name
+    description
+    city
+    neighborhood
+    address
+    cuisineType
+    phoneNumber
+    website
+    ownerUserId
+    createdAt
+  }
+}
+
+
+# GetPendingApprovalPromotions
+# Returns promotions awaiting admin review.
+# Covers both SCRAPED (Apify ingestion) and USER_SUBMITTED (fan crowdsourced) sources.
+# PARTNER promotions are auto-approved by Cloud Run at insert time.
+# Ordered by source then by submission time (oldest first per source).
+#
+# Cloud Run route: GET /api/admin/promotions/pending
+query GetPendingApprovalPromotions @auth(level: NO_ACCESS) {
+  promotions(
+    where: {
+      _and: [
+        { isApproved: { eq: false } }
+        { source: { ne: PARTNER } }
+      ]
+    }
+    orderBy: [{ source: ASC }, { createdAt: ASC }]
+  ) {
+    id
+    name
+    description
+    dealType
+    daysOfWeek
+    startTime
+    endTime
+    source
+    submittedByUserId
+    flagCount
+    createdAt
+    restaurant {
+      id
+      name
+      city
+      neighborhood
+    }
+  }
+}
+
+
+# GetRestaurantAnalytics
+# Returns raw VenueView events for a restaurant within a date range.
+# Cloud Run aggregates these into counts by viewType for the analytics dashboard.
+#
+# Cloud Run route: GET /api/restaurants/:id/analytics?start=&end=
+#   — Cloud Run verifies the caller's Firebase Auth UID matches ownerUserId
+#     OR the caller has admin custom claim before executing this query.
+query GetRestaurantAnalytics($restaurantId: UUID!, $startDate: Timestamp!, $endDate: Timestamp!) @auth(level: NO_ACCESS) {
+  venueViews(
+    where: {
+      _and: [
+        { restaurantId: { eq: $restaurantId } }
+        { createdAt: { ge: $startDate } }
+        { createdAt: { le: $endDate } }
+      ]
+    }
+    orderBy: [{ createdAt: ASC }]
+  ) {
+    id
+    viewType
+    city
+    userId
+    createdAt
+  }
+}
+
+
+# ─── UTILITY QUERIES (NO_ACCESS — Cloud Run ownership checks) ─────────────────
+
+# GetRestaurantById
+# Single restaurant lookup used by Cloud Run for ownership verification before
+# any mutating operation (update, create promotion, analytics access).
+#
+# Cloud Run checks: restaurant.ownerUserId === decoded_token.uid  OR  token.admin === true
+query GetRestaurantById($id: UUID!) @auth(level: NO_ACCESS) {
+  restaurant(id: $id) {
+    id
+    name
+    city
+    ownerUserId
+    isApproved
+    isSuspended
+    isVerified
+    boostTier
+    boostExpiresAt
+    stripeSubscriptionId
+    createdAt
+    updatedAt
+  }
+}
+
+
+# GetPromotionWithRestaurant
+# Fetches a promotion and its parent restaurant's owner info in one call.
+# Used by promotion update/toggle/flag routes to verify caller owns the restaurant.
+query GetPromotionWithRestaurant($id: UUID!) @auth(level: NO_ACCESS) {
+  promotion(id: $id) {
+    id
+    isActive
+    flagCount
+    restaurant {
+      id
+      ownerUserId
+    }
+  }
+}
+
+
+# GetUserById
+# Server-side user lookup for Pro status checks and profile operations.
+# Cloud Run uses this to verify Pro status before allowing concierge access.
+query GetUserById($id: String!) @auth(level: NO_ACCESS) {
+  user(id: $id) {
+    id
+    email
+    displayName
+    isPro
+    proExpiresAt
+    stripeCustomerId
+    city
+    preferredDealTypes
+    quietHoursStart
+    quietHoursEnd
+  }
+}
+
+
+# GetUserSavedVenues
+# Fetches all restaurants saved by a specific user. Ordered newest-first.
+# Cloud Run route: GET /api/users/saved-venues
+query GetUserSavedVenues($userId: String!) @auth(level: NO_ACCESS) {
+  userSavedVenues(
+    where: { userId: { eq: $userId } }
+    orderBy: [{ savedAt: DESC }]
+  ) {
+    savedAt
+    restaurant {
+      id
+      name
+      city
+      neighborhood
+      address
+      boostTier
+      isVerified
+      photoUrls
+      googleMapsUrl
+    }
+  }
+}
+
+
+# GetMyRestaurant
+# Returns the restaurant owned by a given Firebase Auth UID.
+# Used by the restaurant portal after sign-in to determine if the owner
+# has already registered and what the restaurant's approval status is.
+# Cloud Run route: GET /api/restaurants/mine
+query GetMyRestaurant($ownerId: String!) @auth(level: NO_ACCESS) {
+  restaurants(
+    where: { ownerUserId: { eq: $ownerId } }
+    limit: 1
+  ) {
+    id
+    name
+    description
+    city
+    neighborhood
+    address
+    cuisineType
+    phoneNumber
+    website
+    googleMapsUrl
+    photoUrls
+    isVerified
+    isApproved
+    isSuspended
+    boostTier
+    boostExpiresAt
+    createdAt
+    updatedAt
+  }
+}
+
+
+# GetAllPromotionsByRestaurant
+# Returns ALL promotions for a restaurant regardless of active/approval status.
+# Used by the restaurant portal's promotions tab so owners can manage their full
+# promotion list, including paused and pending-approval deals.
+# Cloud Run route: GET /api/restaurants/:id/promotions
+query GetAllPromotionsByRestaurant($restaurantId: UUID!) @auth(level: NO_ACCESS) {
+  promotions(
+    where: { restaurantId: { eq: $restaurantId } }
+    orderBy: [{ createdAt: DESC }]
+  ) {
+    id
+    name
+    description
+    dealType
+    daysOfWeek
+    startTime
+    endTime
+    isActive
+    isApproved
+    source
+    flagCount
+    createdAt
+    updatedAt
+  }
+}

@@ -1,18 +1,77 @@
-rules_version='2'
+rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if request.time < timestamp.date(2026, 3, 29);
+
+    // ─── HELPERS ──────────────────────────────────────────────────────────────
+
+    function isSignedIn() {
+      return request.auth != null;
     }
+
+    // Admin role is set as a Firebase Auth custom claim by Cloud Run.
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // True when the caller is the user who owns the document.
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+
+    // ─── MATCH HUB ────────────────────────────────────────────────────────────
+    // Match fixtures, live scores, standings, group tables.
+    // Written exclusively by the Cloud Run scraper (Firebase Admin SDK — bypasses
+    // these rules). All client reads are public — no sign-in required to browse
+    // match schedules or live scores.
+    match /matchHub/{matchId} {
+      allow read: if true;
+      allow write: if false; // Admin SDK only — never written by clients
+
+      // Subcollections: standings, groupTables, liveEvents, etc.
+      match /{subcollection}/{docId} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+
+
+    // ─── LIVE CHECK-INS ───────────────────────────────────────────────────────
+    // Fans checking in at a restaurant or venue during match day.
+    // Read by anyone for social proof ("12 fans here now").
+    // Created by signed-in fans only; the userId field must match the caller.
+    // Check-ins are immutable after creation; only the owner or an admin can delete.
+    match /checkins/{checkinId} {
+      allow read: if true;
+
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'restaurantId', 'city', 'createdAt']);
+
+      // Check-ins are immutable — no updates allowed.
+      allow update: if false;
+
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+
+
+    // ─── PUSH NOTIFICATION STATE ──────────────────────────────────────────────
+    // One document per user: FCM token(s) and notification delivery state.
+    // Document ID = Firebase Auth UID.
+    // Users read and write their own document (FCM token registration on app launch).
+    // Cloud Run writes delivery state via Admin SDK (bypasses rules).
+    // No other user should ever read another user's push state.
+    match /pushState/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+
+    // ─── DENY ALL ELSE ────────────────────────────────────────────────────────
+    // Explicit fallthrough denial. Any collection not listed above is locked.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
   }
 }

@@ -10,4 +10,6 @@ schema:
         instanceId: "matchdaylounge-fdc"
         # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
         # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
-connectorDirs: ["./example"]
+# ./queries — production connector (restaurants, promotions, analytics, saved venues)
+# ./example — Firebase-generated sample connector; safe to delete once ./queries is in use
+connectorDirs: ["./queries"]

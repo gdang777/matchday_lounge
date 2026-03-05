@@ -1,33 +1,45 @@
-import { CreateMovieData, CreateMovieVariables, UpsertUserData, UpsertUserVariables, AddReviewData, AddReviewVariables, DeleteReviewData, DeleteReviewVariables, ListMoviesData, ListUsersData, ListUserReviewsData, GetMovieByIdData, GetMovieByIdVariables, SearchMovieData, SearchMovieVariables } from '../';
+import { CreateRestaurantData, CreateRestaurantVariables, UpdateRestaurantData, UpdateRestaurantVariables, CreatePromotionData, CreatePromotionVariables, UpdatePromotionData, UpdatePromotionVariables, TogglePromotionActiveData, TogglePromotionActiveVariables, RecordVenueViewData, RecordVenueViewVariables, SaveVenueData, SaveVenueVariables, GetRestaurantsByCityData, GetRestaurantsByCityVariables, GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables, GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables, GetPendingApprovalRestaurantsData, GetPendingApprovalPromotionsData, GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables } from '../';
 import { UseDataConnectQueryResult, useDataConnectQueryOptions, UseDataConnectMutationResult, useDataConnectMutationOptions} from '@tanstack-query-firebase/react/data-connect';
 import { UseQueryResult, UseMutationResult} from '@tanstack/react-query';
 import { DataConnect } from 'firebase/data-connect';
 import { FirebaseError } from 'firebase/app';
 
 
-export function useCreateMovie(options?: useDataConnectMutationOptions<CreateMovieData, FirebaseError, CreateMovieVariables>): UseDataConnectMutationResult<CreateMovieData, CreateMovieVariables>;
-export function useCreateMovie(dc: DataConnect, options?: useDataConnectMutationOptions<CreateMovieData, FirebaseError, CreateMovieVariables>): UseDataConnectMutationResult<CreateMovieData, CreateMovieVariables>;
+export function useCreateRestaurant(options?: useDataConnectMutationOptions<CreateRestaurantData, FirebaseError, CreateRestaurantVariables>): UseDataConnectMutationResult<CreateRestaurantData, CreateRestaurantVariables>;
+export function useCreateRestaurant(dc: DataConnect, options?: useDataConnectMutationOptions<CreateRestaurantData, FirebaseError, CreateRestaurantVariables>): UseDataConnectMutationResult<CreateRestaurantData, CreateRestaurantVariables>;
 
-export function useUpsertUser(options?: useDataConnectMutationOptions<UpsertUserData, FirebaseError, UpsertUserVariables>): UseDataConnectMutationResult<UpsertUserData, UpsertUserVariables>;
-export function useUpsertUser(dc: DataConnect, options?: useDataConnectMutationOptions<UpsertUserData, FirebaseError, UpsertUserVariables>): UseDataConnectMutationResult<UpsertUserData, UpsertUserVariables>;
+export function useUpdateRestaurant(options?: useDataConnectMutationOptions<UpdateRestaurantData, FirebaseError, UpdateRestaurantVariables>): UseDataConnectMutationResult<UpdateRestaurantData, UpdateRestaurantVariables>;
+export function useUpdateRestaurant(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateRestaurantData, FirebaseError, UpdateRestaurantVariables>): UseDataConnectMutationResult<UpdateRestaurantData, UpdateRestaurantVariables>;
 
-export function useAddReview(options?: useDataConnectMutationOptions<AddReviewData, FirebaseError, AddReviewVariables>): UseDataConnectMutationResult<AddReviewData, AddReviewVariables>;
-export function useAddReview(dc: DataConnect, options?: useDataConnectMutationOptions<AddReviewData, FirebaseError, AddReviewVariables>): UseDataConnectMutationResult<AddReviewData, AddReviewVariables>;
+export function useCreatePromotion(options?: useDataConnectMutationOptions<CreatePromotionData, FirebaseError, CreatePromotionVariables>): UseDataConnectMutationResult<CreatePromotionData, CreatePromotionVariables>;
+export function useCreatePromotion(dc: DataConnect, options?: useDataConnectMutationOptions<CreatePromotionData, FirebaseError, CreatePromotionVariables>): UseDataConnectMutationResult<CreatePromotionData, CreatePromotionVariables>;
 
-export function useDeleteReview(options?: useDataConnectMutationOptions<DeleteReviewData, FirebaseError, DeleteReviewVariables>): UseDataConnectMutationResult<DeleteReviewData, DeleteReviewVariables>;
-export function useDeleteReview(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteReviewData, FirebaseError, DeleteReviewVariables>): UseDataConnectMutationResult<DeleteReviewData, DeleteReviewVariables>;
+export function useUpdatePromotion(options?: useDataConnectMutationOptions<UpdatePromotionData, FirebaseError, UpdatePromotionVariables>): UseDataConnectMutationResult<UpdatePromotionData, UpdatePromotionVariables>;
+export function useUpdatePromotion(dc: DataConnect, options?: useDataConnectMutationOptions<UpdatePromotionData, FirebaseError, UpdatePromotionVariables>): UseDataConnectMutationResult<UpdatePromotionData, UpdatePromotionVariables>;
 
-export function useListMovies(options?: useDataConnectQueryOptions<ListMoviesData>): UseDataConnectQueryResult<ListMoviesData, undefined>;
-export function useListMovies(dc: DataConnect, options?: useDataConnectQueryOptions<ListMoviesData>): UseDataConnectQueryResult<ListMoviesData, undefined>;
+export function useTogglePromotionActive(options?: useDataConnectMutationOptions<TogglePromotionActiveData, FirebaseError, TogglePromotionActiveVariables>): UseDataConnectMutationResult<TogglePromotionActiveData, TogglePromotionActiveVariables>;
+export function useTogglePromotionActive(dc: DataConnect, options?: useDataConnectMutationOptions<TogglePromotionActiveData, FirebaseError, TogglePromotionActiveVariables>): UseDataConnectMutationResult<TogglePromotionActiveData, TogglePromotionActiveVariables>;
 
-export function useListUsers(options?: useDataConnectQueryOptions<ListUsersData>): UseDataConnectQueryResult<ListUsersData, undefined>;
-export function useListUsers(dc: DataConnect, options?: useDataConnectQueryOptions<ListUsersData>): UseDataConnectQueryResult<ListUsersData, undefined>;
+export function useRecordVenueView(options?: useDataConnectMutationOptions<RecordVenueViewData, FirebaseError, RecordVenueViewVariables>): UseDataConnectMutationResult<RecordVenueViewData, RecordVenueViewVariables>;
+export function useRecordVenueView(dc: DataConnect, options?: useDataConnectMutationOptions<RecordVenueViewData, FirebaseError, RecordVenueViewVariables>): UseDataConnectMutationResult<RecordVenueViewData, RecordVenueViewVariables>;
 
-export function useListUserReviews(options?: useDataConnectQueryOptions<ListUserReviewsData>): UseDataConnectQueryResult<ListUserReviewsData, undefined>;
-export function useListUserReviews(dc: DataConnect, options?: useDataConnectQueryOptions<ListUserReviewsData>): UseDataConnectQueryResult<ListUserReviewsData, undefined>;
+export function useSaveVenue(options?: useDataConnectMutationOptions<SaveVenueData, FirebaseError, SaveVenueVariables>): UseDataConnectMutationResult<SaveVenueData, SaveVenueVariables>;
+export function useSaveVenue(dc: DataConnect, options?: useDataConnectMutationOptions<SaveVenueData, FirebaseError, SaveVenueVariables>): UseDataConnectMutationResult<SaveVenueData, SaveVenueVariables>;
 
-export function useGetMovieById(vars: GetMovieByIdVariables, options?: useDataConnectQueryOptions<GetMovieByIdData>): UseDataConnectQueryResult<GetMovieByIdData, GetMovieByIdVariables>;
-export function useGetMovieById(dc: DataConnect, vars: GetMovieByIdVariables, options?: useDataConnectQueryOptions<GetMovieByIdData>): UseDataConnectQueryResult<GetMovieByIdData, GetMovieByIdVariables>;
+export function useGetRestaurantsByCity(vars: GetRestaurantsByCityVariables, options?: useDataConnectQueryOptions<GetRestaurantsByCityData>): UseDataConnectQueryResult<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
+export function useGetRestaurantsByCity(dc: DataConnect, vars: GetRestaurantsByCityVariables, options?: useDataConnectQueryOptions<GetRestaurantsByCityData>): UseDataConnectQueryResult<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
 
-export function useSearchMovie(vars?: SearchMovieVariables, options?: useDataConnectQueryOptions<SearchMovieData>): UseDataConnectQueryResult<SearchMovieData, SearchMovieVariables>;
-export function useSearchMovie(dc: DataConnect, vars?: SearchMovieVariables, options?: useDataConnectQueryOptions<SearchMovieData>): UseDataConnectQueryResult<SearchMovieData, SearchMovieVariables>;
+export function useGetActivePromotionsByRestaurant(vars: GetActivePromotionsByRestaurantVariables, options?: useDataConnectQueryOptions<GetActivePromotionsByRestaurantData>): UseDataConnectQueryResult<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
+export function useGetActivePromotionsByRestaurant(dc: DataConnect, vars: GetActivePromotionsByRestaurantVariables, options?: useDataConnectQueryOptions<GetActivePromotionsByRestaurantData>): UseDataConnectQueryResult<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
+
+export function useGetActiveHappyHoursNow(vars: GetActiveHappyHoursNowVariables, options?: useDataConnectQueryOptions<GetActiveHappyHoursNowData>): UseDataConnectQueryResult<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+export function useGetActiveHappyHoursNow(dc: DataConnect, vars: GetActiveHappyHoursNowVariables, options?: useDataConnectQueryOptions<GetActiveHappyHoursNowData>): UseDataConnectQueryResult<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+
+export function useGetPendingApprovalRestaurants(options?: useDataConnectQueryOptions<GetPendingApprovalRestaurantsData>): UseDataConnectQueryResult<GetPendingApprovalRestaurantsData, undefined>;
+export function useGetPendingApprovalRestaurants(dc: DataConnect, options?: useDataConnectQueryOptions<GetPendingApprovalRestaurantsData>): UseDataConnectQueryResult<GetPendingApprovalRestaurantsData, undefined>;
+
+export function useGetPendingApprovalPromotions(options?: useDataConnectQueryOptions<GetPendingApprovalPromotionsData>): UseDataConnectQueryResult<GetPendingApprovalPromotionsData, undefined>;
+export function useGetPendingApprovalPromotions(dc: DataConnect, options?: useDataConnectQueryOptions<GetPendingApprovalPromotionsData>): UseDataConnectQueryResult<GetPendingApprovalPromotionsData, undefined>;
+
+export function useGetRestaurantAnalytics(vars: GetRestaurantAnalyticsVariables, options?: useDataConnectQueryOptions<GetRestaurantAnalyticsData>): UseDataConnectQueryResult<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;
+export function useGetRestaurantAnalytics(dc: DataConnect, vars: GetRestaurantAnalyticsVariables, options?: useDataConnectQueryOptions<GetRestaurantAnalyticsData>): UseDataConnectQueryResult<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;

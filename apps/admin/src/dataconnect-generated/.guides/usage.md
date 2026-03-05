@@ -12,26 +12,28 @@ For each operation, there is a wrapper hook that can be used to call the operati
 
 Here are all of the hooks that get generated:
 ```ts
-import { useCreateMovie, useUpsertUser, useAddReview, useDeleteReview, useListMovies, useListUsers, useListUserReviews, useGetMovieById, useSearchMovie } from '@dataconnect/generated/react';
+import { useCreateRestaurant, useUpdateRestaurant, useCreatePromotion, useUpdatePromotion, useTogglePromotionActive, useRecordVenueView, useSaveVenue, useGetRestaurantsByCity, useGetActivePromotionsByRestaurant, useGetActiveHappyHoursNow } from '@dataconnect/matchday/react';
 // The types of these hooks are available in react/index.d.ts
 
-const { data, isPending, isSuccess, isError, error } = useCreateMovie(createMovieVars);
+const { data, isPending, isSuccess, isError, error } = useCreateRestaurant(createRestaurantVars);
 
-const { data, isPending, isSuccess, isError, error } = useUpsertUser(upsertUserVars);
+const { data, isPending, isSuccess, isError, error } = useUpdateRestaurant(updateRestaurantVars);
 
-const { data, isPending, isSuccess, isError, error } = useAddReview(addReviewVars);
+const { data, isPending, isSuccess, isError, error } = useCreatePromotion(createPromotionVars);
 
-const { data, isPending, isSuccess, isError, error } = useDeleteReview(deleteReviewVars);
+const { data, isPending, isSuccess, isError, error } = useUpdatePromotion(updatePromotionVars);
 
-const { data, isPending, isSuccess, isError, error } = useListMovies();
+const { data, isPending, isSuccess, isError, error } = useTogglePromotionActive(togglePromotionActiveVars);
 
-const { data, isPending, isSuccess, isError, error } = useListUsers();
+const { data, isPending, isSuccess, isError, error } = useRecordVenueView(recordVenueViewVars);
 
-const { data, isPending, isSuccess, isError, error } = useListUserReviews();
+const { data, isPending, isSuccess, isError, error } = useSaveVenue(saveVenueVars);
 
-const { data, isPending, isSuccess, isError, error } = useGetMovieById(getMovieByIdVars);
+const { data, isPending, isSuccess, isError, error } = useGetRestaurantsByCity(getRestaurantsByCityVars);
 
-const { data, isPending, isSuccess, isError, error } = useSearchMovie(searchMovieVars);
+const { data, isPending, isSuccess, isError, error } = useGetActivePromotionsByRestaurant(getActivePromotionsByRestaurantVars);
+
+const { data, isPending, isSuccess, isError, error } = useGetActiveHappyHoursNow(getActiveHappyHoursNowVars);
 
 ```
 
@@ -70,35 +72,38 @@ If a user is not using a supported framework, they can use the generated SDK dir
 Here's an example of how to use it with the first 5 operations:
 
 ```js
-import { createMovie, upsertUser, addReview, deleteReview, listMovies, listUsers, listUserReviews, getMovieById, searchMovie } from '@dataconnect/generated';
+import { createRestaurant, updateRestaurant, createPromotion, updatePromotion, togglePromotionActive, recordVenueView, saveVenue, getRestaurantsByCity, getActivePromotionsByRestaurant, getActiveHappyHoursNow } from '@dataconnect/matchday';
 
 
-// Operation CreateMovie:  For variables, look at type CreateMovieVars in ../index.d.ts
-const { data } = await CreateMovie(dataConnect, createMovieVars);
+// Operation CreateRestaurant:  For variables, look at type CreateRestaurantVars in ../index.d.ts
+const { data } = await CreateRestaurant(dataConnect, createRestaurantVars);
 
-// Operation UpsertUser:  For variables, look at type UpsertUserVars in ../index.d.ts
-const { data } = await UpsertUser(dataConnect, upsertUserVars);
+// Operation UpdateRestaurant:  For variables, look at type UpdateRestaurantVars in ../index.d.ts
+const { data } = await UpdateRestaurant(dataConnect, updateRestaurantVars);
 
-// Operation AddReview:  For variables, look at type AddReviewVars in ../index.d.ts
-const { data } = await AddReview(dataConnect, addReviewVars);
+// Operation CreatePromotion:  For variables, look at type CreatePromotionVars in ../index.d.ts
+const { data } = await CreatePromotion(dataConnect, createPromotionVars);
 
-// Operation DeleteReview:  For variables, look at type DeleteReviewVars in ../index.d.ts
-const { data } = await DeleteReview(dataConnect, deleteReviewVars);
+// Operation UpdatePromotion:  For variables, look at type UpdatePromotionVars in ../index.d.ts
+const { data } = await UpdatePromotion(dataConnect, updatePromotionVars);
 
-// Operation ListMovies: 
-const { data } = await ListMovies(dataConnect);
+// Operation TogglePromotionActive:  For variables, look at type TogglePromotionActiveVars in ../index.d.ts
+const { data } = await TogglePromotionActive(dataConnect, togglePromotionActiveVars);
 
-// Operation ListUsers: 
-const { data } = await ListUsers(dataConnect);
+// Operation RecordVenueView:  For variables, look at type RecordVenueViewVars in ../index.d.ts
+const { data } = await RecordVenueView(dataConnect, recordVenueViewVars);
 
-// Operation ListUserReviews: 
-const { data } = await ListUserReviews(dataConnect);
+// Operation SaveVenue:  For variables, look at type SaveVenueVars in ../index.d.ts
+const { data } = await SaveVenue(dataConnect, saveVenueVars);
 
-// Operation GetMovieById:  For variables, look at type GetMovieByIdVars in ../index.d.ts
-const { data } = await GetMovieById(dataConnect, getMovieByIdVars);
+// Operation GetRestaurantsByCity:  For variables, look at type GetRestaurantsByCityVars in ../index.d.ts
+const { data } = await GetRestaurantsByCity(dataConnect, getRestaurantsByCityVars);
 
-// Operation SearchMovie:  For variables, look at type SearchMovieVars in ../index.d.ts
-const { data } = await SearchMovie(dataConnect, searchMovieVars);
+// Operation GetActivePromotionsByRestaurant:  For variables, look at type GetActivePromotionsByRestaurantVars in ../index.d.ts
+const { data } = await GetActivePromotionsByRestaurant(dataConnect, getActivePromotionsByRestaurantVars);
+
+// Operation GetActiveHappyHoursNow:  For variables, look at type GetActiveHappyHoursNowVars in ../index.d.ts
+const { data } = await GetActiveHappyHoursNow(dataConnect, getActiveHappyHoursNowVars);
 
 
 ```

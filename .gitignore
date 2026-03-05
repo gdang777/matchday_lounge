@@ -43,8 +43,13 @@ service-account-key.json
 .firebase/
 firebase-debug.log
 firestore-debug.log
+storage-debug.log
+dataconnect-debug.log
 ui-debug.log
 database-debug.log
+
+# Firebase emulator persisted data — local dev state, not source code
+firebase/emulator-data/
 
 # Google Cloud
 .gcloud/

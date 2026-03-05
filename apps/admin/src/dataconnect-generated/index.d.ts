@@ -8,131 +8,266 @@ export type Int64String = string;
 export type DateString = string;
 
 
+export enum BoostTier {
+  STANDARD = "STANDARD",
+  FEATURED = "FEATURED",
+  PREMIUM = "PREMIUM",
+};
+
+export enum City {
+  VANCOUVER = "VANCOUVER",
+  TORONTO = "TORONTO",
+};
+
+export enum DealType {
+  DRINKS = "DRINKS",
+  FOOD = "FOOD",
+  BOTH = "BOTH",
+};
+
+export enum PromotionSource {
+  PARTNER = "PARTNER",
+  SCRAPED = "SCRAPED",
+  USER_SUBMITTED = "USER_SUBMITTED",
+};
+
+export enum ViewType {
+  LISTING = "LISTING",
+  PROFILE = "PROFILE",
+  MAP_PIN = "MAP_PIN",
+};
 
 
-export interface AddReviewData {
-  review_upsert: Review_Key;
+
+export interface CreatePromotionData {
+  promotion_insert: Promotion_Key;
 }
 
-export interface AddReviewVariables {
-  movieId: UUIDString;
-  rating: number;
-  reviewText: string;
+export interface CreatePromotionVariables {
+  restaurantId: UUIDString;
+  name: string;
+  description: string;
+  dealType: DealType;
+  daysOfWeek: string;
+  startTime: string;
+  endTime: string;
+  source: PromotionSource;
+  isApproved: boolean;
+  submittedByUserId?: string | null;
 }
 
-export interface CreateMovieData {
-  movie_insert: Movie_Key;
+export interface CreateRestaurantData {
+  restaurant_insert: Restaurant_Key;
 }
 
-export interface CreateMovieVariables {
-  title: string;
-  genre: string;
-  imageUrl: string;
+export interface CreateRestaurantVariables {
+  ownerUserId: string;
+  name: string;
+  description?: string | null;
+  city: City;
+  neighborhood?: string | null;
+  address?: string | null;
+  cuisineType?: string | null;
+  phoneNumber?: string | null;
+  website?: string | null;
+  googleMapsUrl?: string | null;
+  photoUrls?: string | null;
 }
 
-export interface DeleteReviewData {
-  review_delete?: Review_Key | null;
-}
-
-export interface DeleteReviewVariables {
-  movieId: UUIDString;
-}
-
-export interface GetMovieByIdData {
-  movie?: {
+export interface GetActiveHappyHoursNowData {
+  promotions: ({
     id: UUIDString;
-    title: string;
-    imageUrl: string;
-    genre?: string | null;
-    metadata?: {
-      rating?: number | null;
-      releaseYear?: number | null;
-      description?: string | null;
-    };
-      reviews: ({
-        reviewText?: string | null;
-        reviewDate: DateString;
-        rating?: number | null;
-        user: {
-          id: string;
-          username: string;
-        } & User_Key;
-      })[];
-  } & Movie_Key;
+    name: string;
+    description: string;
+    dealType: DealType;
+    startTime: string;
+    endTime: string;
+    daysOfWeek: string;
+    restaurant: {
+      id: UUIDString;
+      name: string;
+      address?: string | null;
+      neighborhood?: string | null;
+      city: City;
+      boostTier: BoostTier;
+      photoUrls?: string | null;
+      googleMapsUrl?: string | null;
+      isVerified: boolean;
+    } & Restaurant_Key;
+  } & Promotion_Key)[];
 }
 
-export interface GetMovieByIdVariables {
-  id: UUIDString;
+export interface GetActiveHappyHoursNowVariables {
+  city: City;
+  currentDay: string;
+  currentTime: string;
 }
 
-export interface ListMoviesData {
-  movies: ({
+export interface GetActivePromotionsByRestaurantData {
+  promotions: ({
     id: UUIDString;
-    title: string;
-    imageUrl: string;
-    genre?: string | null;
-  } & Movie_Key)[];
+    name: string;
+    description: string;
+    dealType: DealType;
+    daysOfWeek: string;
+    startTime: string;
+    endTime: string;
+    source: PromotionSource;
+  } & Promotion_Key)[];
 }
 
-export interface ListUserReviewsData {
-  user?: {
-    id: string;
-    username: string;
-    reviews: ({
-      rating?: number | null;
-      reviewDate: DateString;
-      reviewText?: string | null;
-      movie: {
-        id: UUIDString;
-        title: string;
-      } & Movie_Key;
-    })[];
-  } & User_Key;
+export interface GetActivePromotionsByRestaurantVariables {
+  restaurantId: UUIDString;
 }
 
-export interface ListUsersData {
-  users: ({
-    id: string;
-    username: string;
-  } & User_Key)[];
-}
-
-export interface MovieMetadata_Key {
-  id: UUIDString;
-  __typename?: 'MovieMetadata_Key';
-}
-
-export interface Movie_Key {
-  id: UUIDString;
-  __typename?: 'Movie_Key';
-}
-
-export interface Review_Key {
-  userId: string;
-  movieId: UUIDString;
-  __typename?: 'Review_Key';
-}
-
-export interface SearchMovieData {
-  movies: ({
+export interface GetPendingApprovalPromotionsData {
+  promotions: ({
     id: UUIDString;
-    title: string;
-    genre?: string | null;
-    imageUrl: string;
-  } & Movie_Key)[];
+    name: string;
+    description: string;
+    dealType: DealType;
+    daysOfWeek: string;
+    startTime: string;
+    endTime: string;
+    source: PromotionSource;
+    submittedByUserId?: string | null;
+    flagCount: number;
+    createdAt: TimestampString;
+    restaurant: {
+      id: UUIDString;
+      name: string;
+      city: City;
+      neighborhood?: string | null;
+    } & Restaurant_Key;
+  } & Promotion_Key)[];
 }
 
-export interface SearchMovieVariables {
-  titleInput?: string | null;
-  genre?: string | null;
+export interface GetPendingApprovalRestaurantsData {
+  restaurants: ({
+    id: UUIDString;
+    name: string;
+    description?: string | null;
+    city: City;
+    neighborhood?: string | null;
+    address?: string | null;
+    cuisineType?: string | null;
+    phoneNumber?: string | null;
+    website?: string | null;
+    ownerUserId: string;
+    createdAt: TimestampString;
+  } & Restaurant_Key)[];
 }
 
-export interface UpsertUserData {
-  user_upsert: User_Key;
+export interface GetRestaurantAnalyticsData {
+  venueViews: ({
+    id: UUIDString;
+    viewType: ViewType;
+    city: City;
+    userId?: string | null;
+    createdAt: TimestampString;
+  } & VenueView_Key)[];
 }
 
-export interface UpsertUserVariables {
-  username: string;
+export interface GetRestaurantAnalyticsVariables {
+  restaurantId: UUIDString;
+  startDate: TimestampString;
+  endDate: TimestampString;
+}
+
+export interface GetRestaurantsByCityData {
+  restaurants: ({
+    id: UUIDString;
+    name: string;
+    description?: string | null;
+    city: City;
+    neighborhood?: string | null;
+    address?: string | null;
+    cuisineType?: string | null;
+    phoneNumber?: string | null;
+    website?: string | null;
+    googleMapsUrl?: string | null;
+    photoUrls?: string | null;
+    boostTier: BoostTier;
+    isVerified: boolean;
+  } & Restaurant_Key)[];
+}
+
+export interface GetRestaurantsByCityVariables {
+  city: City;
+}
+
+export interface Promotion_Key {
+  id: UUIDString;
+  __typename?: 'Promotion_Key';
+}
+
+export interface RecordVenueViewData {
+  venueView_insert: VenueView_Key;
+}
+
+export interface RecordVenueViewVariables {
+  restaurantId: UUIDString;
+  userId?: string | null;
+  viewType: ViewType;
+  city: City;
+}
+
+export interface Restaurant_Key {
+  id: UUIDString;
+  __typename?: 'Restaurant_Key';
+}
+
+export interface SaveVenueData {
+  userSavedVenue_insert: UserSavedVenue_Key;
+}
+
+export interface SaveVenueVariables {
+  restaurantId: UUIDString;
+}
+
+export interface TogglePromotionActiveData {
+  promotion_update?: Promotion_Key | null;
+}
+
+export interface TogglePromotionActiveVariables {
+  id: UUIDString;
+  isActive: boolean;
+}
+
+export interface UpdatePromotionData {
+  promotion_update?: Promotion_Key | null;
+}
+
+export interface UpdatePromotionVariables {
+  id: UUIDString;
+  name?: string | null;
+  description?: string | null;
+  dealType?: DealType | null;
+  daysOfWeek?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+}
+
+export interface UpdateRestaurantData {
+  restaurant_update?: Restaurant_Key | null;
+}
+
+export interface UpdateRestaurantVariables {
+  id: UUIDString;
+  name?: string | null;
+  description?: string | null;
+  neighborhood?: string | null;
+  address?: string | null;
+  cuisineType?: string | null;
+  phoneNumber?: string | null;
+  website?: string | null;
+  googleMapsUrl?: string | null;
+  photoUrls?: string | null;
+}
+
+export interface UserSavedVenue_Key {
+  id: UUIDString;
+  __typename?: 'UserSavedVenue_Key';
 }
 
 export interface User_Key {
@@ -140,111 +275,164 @@ export interface User_Key {
   __typename?: 'User_Key';
 }
 
-interface CreateMovieRef {
+export interface VenueView_Key {
+  id: UUIDString;
+  __typename?: 'VenueView_Key';
+}
+
+interface CreateRestaurantRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateMovieVariables): MutationRef<CreateMovieData, CreateMovieVariables>;
+  (vars: CreateRestaurantVariables): MutationRef<CreateRestaurantData, CreateRestaurantVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateMovieVariables): MutationRef<CreateMovieData, CreateMovieVariables>;
+  (dc: DataConnect, vars: CreateRestaurantVariables): MutationRef<CreateRestaurantData, CreateRestaurantVariables>;
   operationName: string;
 }
-export const createMovieRef: CreateMovieRef;
+export const createRestaurantRef: CreateRestaurantRef;
 
-export function createMovie(vars: CreateMovieVariables): MutationPromise<CreateMovieData, CreateMovieVariables>;
-export function createMovie(dc: DataConnect, vars: CreateMovieVariables): MutationPromise<CreateMovieData, CreateMovieVariables>;
+export function createRestaurant(vars: CreateRestaurantVariables): MutationPromise<CreateRestaurantData, CreateRestaurantVariables>;
+export function createRestaurant(dc: DataConnect, vars: CreateRestaurantVariables): MutationPromise<CreateRestaurantData, CreateRestaurantVariables>;
 
-interface UpsertUserRef {
+interface UpdateRestaurantRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
+  (vars: UpdateRestaurantVariables): MutationRef<UpdateRestaurantData, UpdateRestaurantVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
+  (dc: DataConnect, vars: UpdateRestaurantVariables): MutationRef<UpdateRestaurantData, UpdateRestaurantVariables>;
   operationName: string;
 }
-export const upsertUserRef: UpsertUserRef;
+export const updateRestaurantRef: UpdateRestaurantRef;
 
-export function upsertUser(vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
-export function upsertUser(dc: DataConnect, vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
+export function updateRestaurant(vars: UpdateRestaurantVariables): MutationPromise<UpdateRestaurantData, UpdateRestaurantVariables>;
+export function updateRestaurant(dc: DataConnect, vars: UpdateRestaurantVariables): MutationPromise<UpdateRestaurantData, UpdateRestaurantVariables>;
 
-interface AddReviewRef {
+interface CreatePromotionRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: AddReviewVariables): MutationRef<AddReviewData, AddReviewVariables>;
+  (vars: CreatePromotionVariables): MutationRef<CreatePromotionData, CreatePromotionVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: AddReviewVariables): MutationRef<AddReviewData, AddReviewVariables>;
+  (dc: DataConnect, vars: CreatePromotionVariables): MutationRef<CreatePromotionData, CreatePromotionVariables>;
   operationName: string;
 }
-export const addReviewRef: AddReviewRef;
+export const createPromotionRef: CreatePromotionRef;
 
-export function addReview(vars: AddReviewVariables): MutationPromise<AddReviewData, AddReviewVariables>;
-export function addReview(dc: DataConnect, vars: AddReviewVariables): MutationPromise<AddReviewData, AddReviewVariables>;
+export function createPromotion(vars: CreatePromotionVariables): MutationPromise<CreatePromotionData, CreatePromotionVariables>;
+export function createPromotion(dc: DataConnect, vars: CreatePromotionVariables): MutationPromise<CreatePromotionData, CreatePromotionVariables>;
 
-interface DeleteReviewRef {
+interface UpdatePromotionRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: DeleteReviewVariables): MutationRef<DeleteReviewData, DeleteReviewVariables>;
+  (vars: UpdatePromotionVariables): MutationRef<UpdatePromotionData, UpdatePromotionVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: DeleteReviewVariables): MutationRef<DeleteReviewData, DeleteReviewVariables>;
+  (dc: DataConnect, vars: UpdatePromotionVariables): MutationRef<UpdatePromotionData, UpdatePromotionVariables>;
   operationName: string;
 }
-export const deleteReviewRef: DeleteReviewRef;
+export const updatePromotionRef: UpdatePromotionRef;
 
-export function deleteReview(vars: DeleteReviewVariables): MutationPromise<DeleteReviewData, DeleteReviewVariables>;
-export function deleteReview(dc: DataConnect, vars: DeleteReviewVariables): MutationPromise<DeleteReviewData, DeleteReviewVariables>;
+export function updatePromotion(vars: UpdatePromotionVariables): MutationPromise<UpdatePromotionData, UpdatePromotionVariables>;
+export function updatePromotion(dc: DataConnect, vars: UpdatePromotionVariables): MutationPromise<UpdatePromotionData, UpdatePromotionVariables>;
 
-interface ListMoviesRef {
+interface TogglePromotionActiveRef {
   /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListMoviesData, undefined>;
+  (vars: TogglePromotionActiveVariables): MutationRef<TogglePromotionActiveData, TogglePromotionActiveVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListMoviesData, undefined>;
+  (dc: DataConnect, vars: TogglePromotionActiveVariables): MutationRef<TogglePromotionActiveData, TogglePromotionActiveVariables>;
   operationName: string;
 }
-export const listMoviesRef: ListMoviesRef;
+export const togglePromotionActiveRef: TogglePromotionActiveRef;
 
-export function listMovies(): QueryPromise<ListMoviesData, undefined>;
-export function listMovies(dc: DataConnect): QueryPromise<ListMoviesData, undefined>;
+export function togglePromotionActive(vars: TogglePromotionActiveVariables): MutationPromise<TogglePromotionActiveData, TogglePromotionActiveVariables>;
+export function togglePromotionActive(dc: DataConnect, vars: TogglePromotionActiveVariables): MutationPromise<TogglePromotionActiveData, TogglePromotionActiveVariables>;
 
-interface ListUsersRef {
+interface RecordVenueViewRef {
   /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListUsersData, undefined>;
+  (vars: RecordVenueViewVariables): MutationRef<RecordVenueViewData, RecordVenueViewVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListUsersData, undefined>;
+  (dc: DataConnect, vars: RecordVenueViewVariables): MutationRef<RecordVenueViewData, RecordVenueViewVariables>;
   operationName: string;
 }
-export const listUsersRef: ListUsersRef;
+export const recordVenueViewRef: RecordVenueViewRef;
 
-export function listUsers(): QueryPromise<ListUsersData, undefined>;
-export function listUsers(dc: DataConnect): QueryPromise<ListUsersData, undefined>;
+export function recordVenueView(vars: RecordVenueViewVariables): MutationPromise<RecordVenueViewData, RecordVenueViewVariables>;
+export function recordVenueView(dc: DataConnect, vars: RecordVenueViewVariables): MutationPromise<RecordVenueViewData, RecordVenueViewVariables>;
 
-interface ListUserReviewsRef {
+interface SaveVenueRef {
   /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListUserReviewsData, undefined>;
+  (vars: SaveVenueVariables): MutationRef<SaveVenueData, SaveVenueVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListUserReviewsData, undefined>;
+  (dc: DataConnect, vars: SaveVenueVariables): MutationRef<SaveVenueData, SaveVenueVariables>;
   operationName: string;
 }
-export const listUserReviewsRef: ListUserReviewsRef;
+export const saveVenueRef: SaveVenueRef;
 
-export function listUserReviews(): QueryPromise<ListUserReviewsData, undefined>;
-export function listUserReviews(dc: DataConnect): QueryPromise<ListUserReviewsData, undefined>;
+export function saveVenue(vars: SaveVenueVariables): MutationPromise<SaveVenueData, SaveVenueVariables>;
+export function saveVenue(dc: DataConnect, vars: SaveVenueVariables): MutationPromise<SaveVenueData, SaveVenueVariables>;
 
-interface GetMovieByIdRef {
+interface GetRestaurantsByCityRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: GetMovieByIdVariables): QueryRef<GetMovieByIdData, GetMovieByIdVariables>;
+  (vars: GetRestaurantsByCityVariables): QueryRef<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetMovieByIdVariables): QueryRef<GetMovieByIdData, GetMovieByIdVariables>;
+  (dc: DataConnect, vars: GetRestaurantsByCityVariables): QueryRef<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
   operationName: string;
 }
-export const getMovieByIdRef: GetMovieByIdRef;
+export const getRestaurantsByCityRef: GetRestaurantsByCityRef;
 
-export function getMovieById(vars: GetMovieByIdVariables): QueryPromise<GetMovieByIdData, GetMovieByIdVariables>;
-export function getMovieById(dc: DataConnect, vars: GetMovieByIdVariables): QueryPromise<GetMovieByIdData, GetMovieByIdVariables>;
+export function getRestaurantsByCity(vars: GetRestaurantsByCityVariables): QueryPromise<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
+export function getRestaurantsByCity(dc: DataConnect, vars: GetRestaurantsByCityVariables): QueryPromise<GetRestaurantsByCityData, GetRestaurantsByCityVariables>;
 
-interface SearchMovieRef {
+interface GetActivePromotionsByRestaurantRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars?: SearchMovieVariables): QueryRef<SearchMovieData, SearchMovieVariables>;
+  (vars: GetActivePromotionsByRestaurantVariables): QueryRef<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars?: SearchMovieVariables): QueryRef<SearchMovieData, SearchMovieVariables>;
+  (dc: DataConnect, vars: GetActivePromotionsByRestaurantVariables): QueryRef<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
   operationName: string;
 }
-export const searchMovieRef: SearchMovieRef;
+export const getActivePromotionsByRestaurantRef: GetActivePromotionsByRestaurantRef;
 
-export function searchMovie(vars?: SearchMovieVariables): QueryPromise<SearchMovieData, SearchMovieVariables>;
-export function searchMovie(dc: DataConnect, vars?: SearchMovieVariables): QueryPromise<SearchMovieData, SearchMovieVariables>;
+export function getActivePromotionsByRestaurant(vars: GetActivePromotionsByRestaurantVariables): QueryPromise<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
+export function getActivePromotionsByRestaurant(dc: DataConnect, vars: GetActivePromotionsByRestaurantVariables): QueryPromise<GetActivePromotionsByRestaurantData, GetActivePromotionsByRestaurantVariables>;
+
+interface GetActiveHappyHoursNowRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetActiveHappyHoursNowVariables): QueryRef<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetActiveHappyHoursNowVariables): QueryRef<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+  operationName: string;
+}
+export const getActiveHappyHoursNowRef: GetActiveHappyHoursNowRef;
+
+export function getActiveHappyHoursNow(vars: GetActiveHappyHoursNowVariables): QueryPromise<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+export function getActiveHappyHoursNow(dc: DataConnect, vars: GetActiveHappyHoursNowVariables): QueryPromise<GetActiveHappyHoursNowData, GetActiveHappyHoursNowVariables>;
+
+interface GetPendingApprovalRestaurantsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<GetPendingApprovalRestaurantsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<GetPendingApprovalRestaurantsData, undefined>;
+  operationName: string;
+}
+export const getPendingApprovalRestaurantsRef: GetPendingApprovalRestaurantsRef;
+
+export function getPendingApprovalRestaurants(): QueryPromise<GetPendingApprovalRestaurantsData, undefined>;
+export function getPendingApprovalRestaurants(dc: DataConnect): QueryPromise<GetPendingApprovalRestaurantsData, undefined>;
+
+interface GetPendingApprovalPromotionsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<GetPendingApprovalPromotionsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<GetPendingApprovalPromotionsData, undefined>;
+  operationName: string;
+}
+export const getPendingApprovalPromotionsRef: GetPendingApprovalPromotionsRef;
+
+export function getPendingApprovalPromotions(): QueryPromise<GetPendingApprovalPromotionsData, undefined>;
+export function getPendingApprovalPromotions(dc: DataConnect): QueryPromise<GetPendingApprovalPromotionsData, undefined>;
+
+interface GetRestaurantAnalyticsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetRestaurantAnalyticsVariables): QueryRef<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetRestaurantAnalyticsVariables): QueryRef<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;
+  operationName: string;
+}
+export const getRestaurantAnalyticsRef: GetRestaurantAnalyticsRef;
+
+export function getRestaurantAnalytics(vars: GetRestaurantAnalyticsVariables): QueryPromise<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;
+export function getRestaurantAnalytics(dc: DataConnect, vars: GetRestaurantAnalyticsVariables): QueryPromise<GetRestaurantAnalyticsData, GetRestaurantAnalyticsVariables>;
 

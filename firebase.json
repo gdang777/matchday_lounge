@@ -1,5 +1,21 @@
 {
+  "emulators": {
+    "auth": { "port": 9099 },
+    "firestore": { "port": 8088 },
+    "storage": { "port": 9199 },
+    "dataconnect": { "port": 9399 },
+    "ui": { "enabled": true, "port": 4000 },
+    "hub": { "port": 4400 },
+    "logging": { "port": 4500 },
+    "singleProjectMode": true
+  },
   "hosting": [
+    {
+      "target": "fan",
+      "public": "apps/fan-web/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{"source": "**", "destination": "/index.html"}]
+    },
     {
       "target": "restaurant",
       "public": "apps/restaurant/dist",
